@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APP NAME GOES HERE</title>
-  <script type="text/javascript" src="index.js"></script>
+  <title>HeirBnb</title>
+  <script defer type="text/javascript" src="index.js"></script>
 </head>
 
 <body>
-  <div class="image-container">
-      <div class="image-card">
+  <!-- <div class="listings-container">
+      <div class="listing-card">
         <h2 class="title">Listing Location</h2>
         <img src="" class="image" />
         <div class="likes-section">
@@ -19,7 +19,44 @@
         </div>
         <ul class="comments">
         </ul>
-      </div>
+  </div> -->
+  <div class="banner">
+    
+  </div>
+
+  <div class="menu-bar">
+    <ul>
+      <li>Listing Image/name</li>
+    </ul>
+  </div>
+
+  <div class="listing-details">
+    <h2>Listing Location</h2>
+    <img src="" />
+    <span>Price</span>
+  </div>
+
+  <div class="listing-description">
+    <span>Listing Description</span>
+</div>
+
+<div class="previous-reviews">
+  <ul>
+    <li>previous reviews</li>
+  </ul>
+</div>
+
+<div class="create-review">
+  <form id="create-rating" data-id="insert listing ID">
+    <label for="rating">Rating: </label>
+    <input type="number" name="rating" id="rating" value="Insert Rating Here" />
+    <label for="review">Comment: </label>
+    <textarea name="comment" id="comment">Insert Comment Here</textarea>
+    <input type="submit" value="Update" />
+  </form>
+</div>
+
+
 </body>
 
 </html>
