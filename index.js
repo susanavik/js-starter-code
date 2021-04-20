@@ -12,6 +12,7 @@ function fetchAllListings() {
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
                 // console.log(listingObj)
+                showListingDetailsHelper(listingObj)
                 renderEachListing(listingObj)
             })
         })
