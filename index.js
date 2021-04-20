@@ -37,6 +37,7 @@ function showListingDetailsHelper(listingObj) {
     const listingImg = document.querySelector('#listing-details > div > img')
     listingImg.src = listingObj.image
     listingImg.alt = listingObj.name
+    listingImg.dataset.id = listingObj.id
 
     const listingLocation = document.querySelector('#listing-details > div > div > h2')
     listingLocation.innerText = listingObj.location
@@ -63,8 +64,48 @@ function showListingDetails() {
     })
 }
 
+/********** REVIEW FORM **********/
+
+const reviewForm = document.querySelector("#review-container > div")
+const listingImg = document.querySelector('#listing-details > div > img')
+
+reviewForm.addEventListener('submit', event => {
+    event.preventDefault()
 
 
+    const rating = event.target.rating.value
+    const review = event.target.review.value
+    const newLi = document.createElement('li')
+    newLi.innerText = review
+    const reviewView = document.querySelector("#review-container > ul")
+    reviewView.append(newLi)
+
+    
+    fetch(`http://localhost:3000/bookings/${listingImg.dataset.id}`, {
+        method: 'PATCH',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({rating, review})
+    })
+        .then(resp => resp.json())
+        .then(updatedListing => {
+            console.log(updatedListing)
+        })
+})
+
+/********** REMOVE REVIEW **********/
+const reviewView = document.querySelector("#review-container > ul")
+
+reviewView.addEventListener('click', event => {
+    const reviewId = event.target.parentElement.dataset.id
+    event.target.parentElement.parentElement.remove()
+    deleteReview(reviewId)
+})
+
+function deleteReview(ReviewId){
+    fetch(`http://localhost:3000/bookings/${ReviewId}`, {
+      method: "DELETE"
+    })
+  }
 
 /********** APP INIT **********/
 fetchAllListings()
