@@ -11,7 +11,6 @@ function fetchAllListings() {
         .then(response => response.json())
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
-                // console.log(listingObj)
                 renderEachListing(listingObj)
             })
         })
@@ -19,15 +18,18 @@ function fetchAllListings() {
 
 function renderEachListing(listingObj) {
 
-    const listingLi = document.createElement('li.item')
+    const listingLi = document.createElement('li')
     listingLi.dataset.id = listingObj.id
+    listingLi.className = "listing-item"
 
-    listingLi.innerText = `
-    ${listingObj.name}
-    `
+    listingLi.innerText = listingObj.name
 
     const allListingsContainer = document.querySelector('#side-bar > ul')
     allListingsContainer.append(listingLi)
+
+    if (listingObj.id == 12){
+        showListingDetailsHelper(listingObj)
+    }
 }
 
 
@@ -53,9 +55,10 @@ function showListingDetails() {
 
     listingContainer.addEventListener('click', event => {
         console.log(event.target.dataset.id)
+        const listingId = event.target.dataset.id
 
-        if (event.target.dataset.id)
-            fetch(`http://localhost:3000/listings/${event.target.dataset.id}`)
+        if (event.target.className === "listing-item")
+            fetch(`http://localhost:3000/listings/${listingId}`)
                 .then(resp => resp.json())
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
