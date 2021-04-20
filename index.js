@@ -42,10 +42,14 @@ function showListingDetailsHelper(listingObj) {
     listingLocation.innerText = listingObj.location
 
     const listingPrice = document.querySelector("#listing-details > div > div > h3")
-    listingPrice.innerText = `$${listingObj.price}`
+    listingPrice.innerText = `$${listingObj.price}/Week`
 
-    const listingDesc = document.querySelector('#listing-details > h3')
-    listingDesc.innerText = `Description: ${listingObj.description}`
+    const listingDesc = document.querySelector('#listing-details > p.description')
+    listingDesc.innerText = `${listingObj.description}`
+
+    const listingMapImage = document.querySelector('#map-container img')
+    listingMapImage.src = listingObj.map_img
+    listingMapImage.alt = listingObj.location
 }
 
 function showListingDetails() {
