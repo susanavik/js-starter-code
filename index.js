@@ -54,7 +54,6 @@ function showListingDetails() {
     const listingContainer = document.querySelector('#side-bar')
 
     listingContainer.addEventListener('click', event => {
-        console.log(event.target.dataset.id)
         const listingId = event.target.dataset.id
 
         if (event.target.className === "listing-item")
