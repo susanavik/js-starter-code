@@ -36,10 +36,11 @@
         max-width: calc(100vw - 2rem);  */
     }
     
-
+/* Side Bar */
     #side-bar { 
         grid-area: 3 / 1 / 5 / 2; 
-        padding: 1rem 2rem;
+        /* padding: 1rem 2rem 0rem; */
+        padding-right: 3rem;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -48,21 +49,41 @@
         line-height: 1.5rem;
         /* height: fit-content; */
     }
-    
 
+    aside ul {
+        width: 100%;
+        padding-left: 0;
+      }
+
+    aside .item {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        border: 1px solid transparent;
+        transition: background-color .3s ease;
+        line-height: 1.5rem;
+    }
+      
+    aside li.item:hover {
+        background-color: #fae8b9;
+    }
+      
+      
+/* Listing Details */
     #listing-details { 
         grid-area: 2 / 2 / 4 / 6; 
         height: fit-content;
         padding-bottom: 5%;
     }
 
-    #listing-details .container {
+    #listing-details .listing-container {
         position: relative;
         /* max-width: 100%;
         height: auto; */
     }
 
-    .container img {
+    .listing-container img {
         max-width: 100%;
         height: auto;
         /* opacity: 0.3; */
@@ -73,11 +94,11 @@
         top: 8px;
         left: 16px;
         font-size: 18px;
-
-        background-color: rgba(255,255,255,0.3)
+        background-color: rgba(255,255,255,0.7)
     }
     
 
+/* Map Styling */
     #map-container { 
         grid-area: 4 / 2 / 6 / 4; 
         width: 300px;
@@ -92,13 +113,15 @@
     }
     
 
+/* Review Styling */
     #review-container { 
         grid-area: 4 / 4 / 6 / 6; 
         height: fit-content;
     }
     
 
+/* Logout Styling */
     #logout { 
         grid-area: 5 / 1 / 6 / 2; 
-        height: fit-content;
+        /* height: fit-content; */
     }
