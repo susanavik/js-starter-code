@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>HeirBnb</title>
+        <script defer type="text/javascript" src="trying.js"></script>
 
                 <!-- linking the CSS file for this  -->
         <link rel='stylesheet' type='text/css' href="trying.css" />
@@ -13,7 +14,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     </head>
     <body>
-        
 
 
 <!-- image carousel -->
@@ -33,9 +33,69 @@
         <img src="https://media.glampinghub.com/CACHE/images/accommodations/ka-bru-river-villa-1543227262399/e439fd01ad5b3a4913d756bd712f9315.jpg" class="d-block w-50" alt="...">
       </div>
     </div>
+     <button id="login">Login</button>
+
   </div>
   
-
+  <body>
+    <div class="parent">
+      
+      
+      <div id="logo">
+        <img src="assets/placeholder-image.png" alt="Insert Logo Image Here">
+      </div>
+  
+      <div id="welcome-bar">
+        <h2>Welcome, [insert username here]!</h2>
+      </div>
+  
+      <div id="side-bar">
+        <ul class="aside">
+          <!-- Listing Names -->
+        </ul>
+      </div>
+  
+    <div id="listing-details">
+        <div class="listing-container">
+          <img src="assets/placeholder-image.png" alt="Insert Name Here" width="1000" height="300">
+          <div class="location">
+            <h2 class="loc">Insert Location Here</h2>
+            <h3 class="price">Insert Price Here</h3>
+          </div>
+        </div>
+        <h3 class="description">Insert Description Here</h3>
+    </div>
+  
+  
+      <div id="map-container">
+        <h4>Listing Map</h4>
+        <img src="assets/placeholder-image.png" alt="Insert Location Here" />
+      </div>
+  
+      <div id="review-container">
+        <h4>Past Reviews</h4>
+        <ul>
+          <li class="past-reviews">Previous reviews</li>
+        </ul>
+        <br>
+        <hr>
+        <br>
+        <div class="create-review">
+          <form id="create-rating" data-id="insert listing ID">
+            <p><label for="rating">Rating: </label>
+            <input type="number" name="rating" id="rating"/></p>
+            <br>
+            <p><label for="review">Comment: </label>
+            <textarea name="comment" id="comment">Write Your Review Here</textarea></p>
+            <input type="submit" value="Update" />
+          </form>
+        </div>
+      </div>
+  
+      <div id="logout">
+        <button class="logout" type="button">Logout</button>
+      </div>
+    </div>
 
 </body>
 </html>
