@@ -1,14 +1,9 @@
-/********** GLOABL VARIABLES **********/
-
 const appBodyContainer = document.querySelector("div.parent")
 let visible = appBodyContainer.style.display="none"
 const carousel = document.querySelector("#carousel-container")
 const login = document.querySelector("#login")
-  const logoPlacement = document.querySelector("#logo > img")
-logoPlacement.src = "assets/main-page-logo.png"
 
 
-//**********LOG IN LISTENER*********** */
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector("body")
     body.addEventListener("click", () => {
@@ -25,7 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 })
 
-
+  const logoPlacement = document.querySelector("#logo > img")
+logoPlacement.src = "assets/main-page-logo.png"
 
 
 
@@ -68,14 +64,10 @@ function showListingDetailsHelper(listingObj) {
     listingLocation.innerText = listingObj.location
 
     const listingPrice = document.querySelector("#listing-details > div > div > h3")
-    listingPrice.innerText = `$${listingObj.price}/Week`
+    listingPrice.innerText = `$${listingObj.price}`
 
-    const listingDesc = document.querySelector('#listing-details > p.description')
-    listingDesc.innerText = `${listingObj.description}`
-
-    const listingMapImage = document.querySelector('#map-container img')
-    listingMapImage.src = listingObj.map_img
-    listingMapImage.alt = listingObj.location
+    const listingDesc = document.querySelector('#listing-details > h3')
+    listingDesc.innerText = `Description: ${listingObj.description}`
 }
 
 function showListingDetails() {
