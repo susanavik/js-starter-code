@@ -4,11 +4,11 @@ logoPlacement = document.createElement("img")
 fetchAllListings()
 
 function fetchAllListings() {
-    fetch('http://localhost:3000/listings')
-        .then(response => response.json())
-        .then(listingsArr => {
-            renderEachListing(listingsArr)
-        })
+    // fetch('http://localhost:3000/listings')
+    //     .then(response => response.json())
+    //     .then(listingsArr => {
+    //         renderEachListing(listingsArr)
+    //     })
     }
 
 

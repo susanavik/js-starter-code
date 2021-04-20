@@ -5,58 +5,74 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HeirBnb</title>
-  <link rel='stylesheet' type='text/css' href="style.css"/>
+  <link rel='stylesheet' type='text/css' href="style.css" />
   <script defer type="text/javascript" src="index.js"></script>
 </head>
 
 <body>
-  <!-- <div class="listings-container">
-      <div class="listing-card">
-        <h2 class="title">Listing Location</h2>
-        <img src="" class="image" />
-        <div class="likes-section">
-          <span class="likes">0 likes</span>
-          <button class="like-button">:hearts:</button>
+  <div class="parent">
+    
+    <div id="logo">
+      <img src="assets/placeholder-image.png" alt="Insert Logo Image Here">
+    </div>
+
+    <div id="welcome-bar">
+      <h2>Welcome, [insert username here]!</h2>
+    </div>
+
+    <div id="side-bar">
+      <ul>
+        <!-- Listing Names -->
+        <li>Testing</li>
+        <li>Testing</li>
+        <li>123</li>
+      </ul>
+    </div>
+
+    <div id="listing-details">
+      <div class="container">
+        <img src="assets/placeholder-image.png" alt="Insert Name Here" width="1000" height="300">
+        <div class="location">Insert Location Here
+          <h5 class="price">Insert Price Here</h5>
         </div>
-        <ul class="comments">
-        </ul>
-  </div> -->
-  <div class="banner">
+      </div>
+      <h4 class="description">Insert Description Here</h4>
 
+      <!-- <img class="detail-image" src="assets/placeholder-image.png" alt="Insert Name Here" /> -->
+      <!-- <h2 class="location">Insert Location Here</h2> -->
+      <!-- <h3 class="price">Insert Price Here</h3> -->
+    </div>
+
+
+    <div id="map-container">
+      <h4>Listing Map</h4>
+      <img src="assets/placeholder-image.png" alt="Insert Location Here" />
+    </div>
+
+    <div id="review-container">
+      <h4>Past Reviews</h4>
+      <ul>
+        <li class="past-reviews">Previous reviews</li>
+      </ul>
+      <br>
+      <hr>
+      <br>
+      <div class="create-review">
+        <form id="create-rating" data-id="insert listing ID">
+          <p><label for="rating">Rating: </label>
+          <input type="number" name="rating" id="rating"/></p>
+          <br>
+          <p><label for="review">Comment: </label>
+          <textarea name="comment" id="comment">Write Your Review Here</textarea></p>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+    </div>
+
+    <div id="logout">
+      <button type="button">Logout</button>
+    </div>
   </div>
-
-  <div class="menu-bar">
-    <ul>
-      <li>Listing Image/name</li>
-    </ul>
-  </div>
-
-  <div class="listing-details">
-    <h2>Listing Location</h2>
-    <img src="" />
-    <span>Price</span>
-  </div>
-
-  <div class="listing-description">
-    <span>Listing Description</span>
-</div>
-
-<div class="previous-reviews">
-  <ul>
-    <li>previous reviews</li>
-  </ul>
-</div>
-
-<div class="create-review">
-  <form id="create-rating" data-id="insert listing ID">
-    <label for="rating">Rating: </label>
-    <input type="number" name="rating" id="rating" value="Insert Rating Here" />
-    <label for="review">Comment: </label>
-    <textarea name="comment" id="comment">Insert Comment Here</textarea>
-    <input type="submit" value="Update" />
-  </form>
-</div>
-
 
 </body>
 
