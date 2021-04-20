@@ -1,7 +1,31 @@
 /********** GLOABL VARIABLES **********/
 
-const logoPlacement = document.querySelector("#logo > img")
+const appBodyContainer = document.querySelector("div.parent")
+let visible = appBodyContainer.style.display="none"
+const carousel = document.querySelector("#carousel-container")
+const login = document.querySelector("#login")
+  const logoPlacement = document.querySelector("#logo > img")
 logoPlacement.src = "assets/main-page-logo.png"
+
+
+//**********LOG IN LISTENER*********** */
+document.addEventListener("DOMContentLoaded", () => {
+    const body = document.querySelector("body")
+    body.addEventListener("click", () => {
+    //   hide & seek with the form
+    if (event.target.id ==="login"){
+           appBodyContainer.style.display = ""
+            carousel.style.display = "none"
+    // console.log("CLICK")
+        }
+        else if (event.target.className ==="logout"){
+            appBodyContainer.style.display = "none"
+            carousel.style.display = ""
+        }
+  })
+})
+
+
 
 
 
