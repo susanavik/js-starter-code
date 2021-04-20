@@ -1,25 +1,31 @@
 // write JS code here
 
-logoPlacement = document.createElement("img")
+const logoPlacement = document.querySelector("#logo > img")
+logoPlacement.src = "assets/main-page-logo.png"
+
 fetchAllListings()
 
 function fetchAllListings() {
-    // fetch('http://localhost:3000/listings')
-    //     .then(response => response.json())
-    //     .then(listingsArr => {
-    //         renderEachListing(listingsArr)
-    //     })
+    fetch('http://localhost:3000/listings')
+        .then(response => response.json())
+        .then(listingsArr => {
+            const listingImg = document.querySelector("#listing-details > div > img")
+            listingImg.src = listingsArr.image
+        })
     }
 
 
 function renderEachListing(listingsArr) {
     listingsArr.forEach(listingObj => {
-        // const listingImg = document.createElement("img")
-        // listingImg.src = listingObj.image
+        const listingImg = document.querySelector("#listing-details > div > img")
+        listingImg.src = listingObj.image
 
-        // const imageCard = document.querySelector("body > div > div")
-        // imageCard.append(listingImg)
-    console.log(listingObj)
+        const listingLocation = document.querySelector("#listing-details > div > div")
+        listingLocation.innerText = listingObj.location
+
+        // const listingPrice = document.querySelector("#listing-details > div > div > h5")
+        // listingPrice.innerText = listingObj.price
+    // console.log(listingObj)
     })
 
 }
