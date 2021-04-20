@@ -38,13 +38,13 @@ function showListingDetailsHelper(listingObj) {
     listingImg.src = listingObj.image
     listingImg.alt = listingObj.name
 
-    const listingLocation = document.querySelector('#listing-details > div > div > h4')
+    const listingLocation = document.querySelector('#listing-details > div > div > h2')
     listingLocation.innerText = listingObj.location
 
-    const listingPrice = document.querySelector('#listing-details > div > div > h4')
+    const listingPrice = document.querySelector("#listing-details > div > div > h3")
     listingPrice.innerText = `$${listingObj.price}`
 
-    const listingDesc = document.querySelector('#listing-details > h4')
+    const listingDesc = document.querySelector('#listing-details > h3')
     listingDesc.innerText = `Description: ${listingObj.description}`
 }
 
