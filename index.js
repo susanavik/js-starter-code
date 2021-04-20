@@ -14,12 +14,12 @@ function fetchAllListings() {
 
 function renderEachListing(listingsArr) {
     listingsArr.forEach(listingObj => {
-        const listingImg = document.createElement("img")
-        listingImg.src = listingObj.image
+        // const listingImg = document.createElement("img")
+        // listingImg.src = listingObj.image
 
-        const imageCard = document.querySelector("body > div > div")
-        imageCard.append(listingImg)
-    // console.log(listingObj)
+        // const imageCard = document.querySelector("body > div > div")
+        // imageCard.append(listingImg)
+    console.log(listingObj)
     })
 
 }
