@@ -2,7 +2,31 @@
 
 const logoPlacement = document.querySelector("#logo > img")
 logoPlacement.src = "assets/main-page-logo.png"
+const appBodyContainer = document.querySelector("div.parent")
+let visible = appBodyContainer.style.display="none"
+const carousel = document.querySelector("#carousel-container > div.carousel-inner")
+const login = document.querySelector("#login")
 
+
+
+/********** opening carosel and log in  **********/
+document.addEventListener("DOMContentLoaded", () => {
+    const body = document.querySelector("body")
+    body.addEventListener("click", () => {
+    //   hide & seek with the form
+    if (event.target.id ==="login"){
+           appBodyContainer.style.display = ""
+            carousel.style.display = "none"
+    console.log(carousel)
+        }
+        else if (event.target.className ==="logout"){
+            appBodyContainer.style.display = "none"
+            carousel.style.display = ""
+            console.log(appBodyContainer)
+
+        }
+  })
+})
 
 
 /********** SHOWS LISTINGS IN SIDEBAR  **********/
@@ -12,6 +36,7 @@ function fetchAllListings() {
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
                 // console.log(listingObj)
+                showListingDetailsHelper(listingObj)
                 renderEachListing(listingObj)
             })
         })
@@ -42,10 +67,14 @@ function showListingDetailsHelper(listingObj) {
     listingLocation.innerText = listingObj.location
 
     const listingPrice = document.querySelector("#listing-details > div > div > h3")
-    listingPrice.innerText = `$${listingObj.price}`
+    listingPrice.innerText = `$${listingObj.price}/Week`
 
-    const listingDesc = document.querySelector('#listing-details > h3')
-    listingDesc.innerText = `Description: ${listingObj.description}`
+    const listingDesc = document.querySelector('#listing-details > p.description')
+    listingDesc.innerText = `${listingObj.description}`
+
+    const listingMapImage = document.querySelector('#map-container img')
+    listingMapImage.src = listingObj.map_img
+    listingMapImage.alt = listingObj.location
 }
 
 function showListingDetails() {
