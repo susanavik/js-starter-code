@@ -123,7 +123,8 @@ reviewForm.addEventListener('submit', event => {
 
     const newReviewObj = {
         rating: event.target.rating.value,
-        comment: event.target.comment.value
+        comment: event.target.comment.value,
+        listing_id: listingImg.dataset.id
     }
     // const listingId = listingImg.dataset.id
     // console.log(listingId)
@@ -209,9 +210,17 @@ document.querySelector("#create-booking-button").addEventListener("click", () =>
 // Hide the form
 modal.addEventListener("submit", e => {
     e.preventDefault()
-    console.log(e.target)
     modal.style.display = "none"
-    if (e.target.dataset.action === "close") {
+    if (e.target.dataset.id === "new-booking-form") {
+        const bookingId = parseInt(event.target.dataset.id)
+        console.log(bookingId)
+
+        // fetch ('http://localhost:3000/bookings', {
+
+        // })
+        // const bookingUl = document.createElement('ul.booking')
+        
+
     }
 })
 
