@@ -47,9 +47,10 @@
     <div id="review-container">
       <h4>Past Reviews</h4>
       <ul>
-        <li class="past-reviews"><p>Previous review 1</p></li>
-        <li class="past-reviews"><p>Previous review 2</p></li>
-        <li class="past-reviews"><p>Previous review 3</p></li>
+        <li class="past-reviews"> 
+          Previous reviews
+          <button type="button" class="deletebtn">Delete</button>
+        </li>
       </ul>
       <br>
       <hr>
@@ -59,9 +60,9 @@
           <p><label for="rating">Rating: </label>
           <input type="number" name="rating" id="rating" min="1" max="5"></p>
           <br>
-          <p><label for="review">Comment: </label>
-          <textarea name="comment" id="comment">Write Your Review Here</textarea></p>
-          <input type="submit" value="Update" />
+          <p><label for="review">Review: </label>
+          <textarea name="review" id="review">Write Your Review Here</textarea></p>
+          <input type="submit" value="Post" />
         </form>
       </div>
     </div>
