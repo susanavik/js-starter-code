@@ -1,31 +1,7 @@
 /********** GLOABL VARIABLES **********/
 
-const appBodyContainer = document.querySelector("div.parent")
-let visible = appBodyContainer.style.display="none"
-const carousel = document.querySelector("#carousel-container")
-const login = document.querySelector("#login")
-  const logoPlacement = document.querySelector("#logo > img")
+const logoPlacement = document.querySelector("#logo > img")
 logoPlacement.src = "assets/main-page-logo.png"
-
-
-//**********LOG IN LISTENER*********** */
-document.addEventListener("DOMContentLoaded", () => {
-    const body = document.querySelector("body")
-    body.addEventListener("click", () => {
-    //   hide & seek with the form
-    if (event.target.id ==="login"){
-           appBodyContainer.style.display = ""
-            carousel.style.display = "none"
-    // console.log("CLICK")
-        }
-        else if (event.target.className ==="logout"){
-            appBodyContainer.style.display = "none"
-            carousel.style.display = ""
-        }
-  })
-})
-
-
 
 
 
@@ -35,6 +11,8 @@ function fetchAllListings() {
         .then(response => response.json())
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
+                // console.log(listingObj)
+                showListingDetailsHelper(listingObj)
                 renderEachListing(listingObj)
             })
         })
@@ -42,18 +20,15 @@ function fetchAllListings() {
 
 function renderEachListing(listingObj) {
 
-    const listingLi = document.createElement('li')
+    const listingLi = document.createElement('li.item')
     listingLi.dataset.id = listingObj.id
-    listingLi.className = "listing-item"
 
-    listingLi.innerText = listingObj.name
+    listingLi.innerText = `
+    ${listingObj.name}
+    `
 
     const allListingsContainer = document.querySelector('#side-bar > ul')
     allListingsContainer.append(listingLi)
-
-    if (listingObj.id == 12){
-        showListingDetailsHelper(listingObj)
-    }
 }
 
 
@@ -82,10 +57,10 @@ function showListingDetails() {
     const listingContainer = document.querySelector('#side-bar')
 
     listingContainer.addEventListener('click', event => {
-        const listingId = event.target.dataset.id
+        console.log(event.target.dataset.id)
 
-        if (event.target.className === "listing-item")
-            fetch(`http://localhost:3000/listings/${listingId}`)
+        if (event.target.dataset.id)
+            fetch(`http://localhost:3000/listings/${event.target.dataset.id}`)
                 .then(resp => resp.json())
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
