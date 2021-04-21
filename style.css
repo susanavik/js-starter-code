@@ -62,12 +62,12 @@
         /* height: fit-content; */
     }
 
-    #side-bar ul {
+    ul.aside {
         width: 100%;
         padding-left: 0;
       }
 
-      #side-bar .item {
+     ul.aside li.item {
         padding: 0.5rem 1rem;
         cursor: pointer;
         display: flex;
@@ -76,9 +76,20 @@
         transition: background-color .3s ease;
         line-height: 1.5rem;
     }
+
+    ul.aside li.item {
+        text-align: center;
+        display: block;
+        color: rgba(255, 180, 0, 0.6);
+        padding: 8px 8px;
+        text-decoration: none;
+        font-weight: bold;
+    }
       
-    #side-bar li.item:hover {
-        background-color: #b9912b;
+    ul.aside li.item:hover,
+    ul.aside li.item:focus {
+        box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+        transform: translateY(-0.25em);
     }
       
     
