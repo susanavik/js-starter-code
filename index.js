@@ -1,31 +1,33 @@
 /********** GLOABL VARIABLES **********/
-
-const logoPlacement = document.querySelector("#logo > img")
-logoPlacement.src = "assets/main-page-logo.png"
 const appBodyContainer = document.querySelector("div.parent")
-let visible = appBodyContainer.style.display="none"
+let visible = appBodyContainer.style.display = "none"
 const carousel = document.querySelector("#carousel-container > div.carousel-inner")
 const login = document.querySelector("#login")
 
 
 
-/********** opening carosel and log in  **********/
+/********** LOGO  **********/
+const logoPlacement = document.querySelector("#logo > img")
+logoPlacement.src = "assets/main-page-logo.png"
+
+
+
+/********** OPENING CAROSEL AND LOGIN  **********/
 document.addEventListener("DOMContentLoaded", () => {
     const body = document.querySelector("body")
-    body.addEventListener("click", () => {
-    //   hide & seek with the form
-    if (event.target.id ==="login"){
-           appBodyContainer.style.display = ""
+    body.addEventListener("click", event => {
+        //   hide & seek with the form
+        if (event.target.id === "login") {
+            appBodyContainer.style.display = ""
             carousel.style.display = "none"
-    console.log(carousel)
+            // console.log(carousel)
         }
-        else if (event.target.className ==="logout"){
+        else if (event.target.className === "logout") {
             appBodyContainer.style.display = "none"
             carousel.style.display = ""
-            console.log(appBodyContainer)
-
+            // console.log(appBodyContainer)
         }
-  })
+    })
 })
 
 
@@ -114,8 +116,8 @@ reviewForm.addEventListener('submit', event => {
 
     fetch(`http://localhost:3000/bookings/`, {
         method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({listing_id, rating, review})
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ listing_id, rating, review })
     })
         .then(resp => resp.json())
         .then(updatedListing => {
@@ -127,7 +129,7 @@ reviewForm.addEventListener('submit', event => {
     const reviewView = document.querySelector("#review-container > ul")
     reviewView.append(newLi)
 
-    })
+})
 
 /********** REMOVE REVIEW **********/
 const reviewView = document.querySelector("#review-container > ul")
@@ -159,6 +161,22 @@ const reviewView = document.querySelector("#review-container > ul")
 //     event.target.parentElement.parentElement.remove()
 //     deleteReview(reviewId)
 // })
+
+
+
+/********** BOOKING FORM **********/
+const modal = document.querySelector("#modal")
+document.querySelector("#create-booking-button").addEventListener("click", () => {
+  modal.style.display = "block"
+  console.log(modal)
+})
+// Hide the form
+modal.addEventListener("click", e => {
+//   e.preventDefault()
+  if (e.target.dataset.action === "close") {
+    modal.style.display = "none"
+  }
+})
 
 
 /********** APP INIT **********/
