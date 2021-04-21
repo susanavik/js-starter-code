@@ -48,11 +48,14 @@
       </div>
     </div>
 
-    <div class="parent">
 
-      <div id="logo">
-        <img src="assets/placeholder-image.png" alt="Insert Logo Image Here">
-      </div>
+  <!-- landing page -->
+  <div class="parent">
+    
+    <div id="logo">
+      <img class="logo" src="assets/placeholder-image.png" alt="Insert Logo Image Here">
+    </div>
+
 
       <div id="welcome-bar">
         <h2>Welcome Back, [insert username here]!</h2>
@@ -88,11 +91,7 @@
 
       <div id="review-container">
         <h4>Past Reviews</h4>
-        <ul>
-          <li class="past-reviews">
-            Previous reviews
-            <button type="button" class="deletebtn">x</button>
-          </li>
+        <ul class="past-reviews">        
         </ul>
         <br>
         <hr>
@@ -105,10 +104,10 @@
             <p><label for="review">Review: </label>
               <input type="text" name="review" placeholder="Tell Us How You Really Feel">
               <input type="submit" value="Add">
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-
+        
       <div id="modal" style="display: none;" data-action="close">
         <form id="new-booking-form">
           <h2>Reserve Stay</h2>
@@ -117,13 +116,10 @@
           <label for="checkout">Check-Out</label>
           <input type="date" id="checkout" name="checkout">
           <input type="submit" value="Complete Reservation">
-        </form>
-      </div>
-
-      <div id="logout">
-        <button class="logout" type="button">Logout</button>
-      </div>
-    </div>
+        </div>
+        <div id="logout">
+          <button class="logout" type="button">Logout</button>
+        </div>
 
 </body>
 

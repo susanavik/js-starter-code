@@ -7,7 +7,7 @@ const login = document.querySelector("#login")
 
 
 /********** LOGO  **********/
-const logoPlacement = document.querySelector("#logo > img")
+const logoPlacement = document.querySelector("img.logo")
 logoPlacement.src = "assets/main-page-logo.png"
 
 
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (event.target.id === "login") {
             appBodyContainer.style.display = ""
             carousel.style.display = "none"
-            // console.log(carousel)
         }
         else if (event.target.className === "logout") {
             appBodyContainer.style.display = "none"
@@ -48,6 +47,7 @@ function renderEachListing(listingObj) {
 
     const listingLi = document.createElement('li.item')
     listingLi.dataset.id = listingObj.id
+    listingLi.className = "listing-item"
 
     listingLi.innerText = `
     ${listingObj.name}
@@ -56,7 +56,6 @@ function renderEachListing(listingObj) {
     const allListingsContainer = document.querySelector('#side-bar > ul')
     allListingsContainer.append(listingLi)
 }
-
 
 
 /********** CLICKED LISTING DETAILS  **********/
@@ -78,20 +77,24 @@ function showListingDetailsHelper(listingObj) {
     const listingMapImage = document.querySelector('#map-container img')
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
+
+    // const listingReview = document.querySelector("#review-container > ul")
+    // listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
+    
+
 }
 
 function showListingDetails() {
     const listingContainer = document.querySelector('#side-bar')
 
     listingContainer.addEventListener('click', event => {
-        console.log(event.target.dataset.id)
-
-        if (event.target.dataset.id)
+        if (event.target.className === "listing-item") {
             fetch(`http://localhost:3000/listings/${event.target.dataset.id}`)
                 .then(resp => resp.json())
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
                 })
+            }
     })
 }
 
@@ -114,20 +117,29 @@ reviewForm.addEventListener('submit', event => {
     const review = event.target.review.value
 
 
-    fetch(`http://localhost:3000/bookings/`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ listing_id, rating, review })
+    fetch(`http://localhost:3000/listings/${listing_id}`, {
+        method: 'PATCH',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({rating, review})
     })
-        .then(resp => resp.json())
-        .then(updatedListing => {
-            console.log(updatedListing)
-        })
+        // .then(resp => resp.json())
+        // .then(promise => {console.log(promise)})
 
     const newLi = document.createElement('li')
-    newLi.innerText = review
+    newLi.innerText = `${review}
+     star rating: ${rating}`
+    // ratingLi.innerText = rating
     const reviewView = document.querySelector("#review-container > ul")
+    const deleteButton = document.createElement('button')
+    deleteButton.className = 'delete-btn'
+    deleteButton.id = listing_id
+    deleteButton.innerText = "delete"
+
     reviewView.append(newLi)
+    
+    reviewView.append(deleteButton)
+
+
 
 })
 
