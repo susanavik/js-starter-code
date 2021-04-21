@@ -2,7 +2,31 @@
 
 const logoPlacement = document.querySelector("#logo > img")
 logoPlacement.src = "assets/main-page-logo.png"
+const appBodyContainer = document.querySelector("div.parent")
+let visible = appBodyContainer.style.display="none"
+const carousel = document.querySelector("#carousel-container > div.carousel-inner")
+const login = document.querySelector("#login")
 
+
+
+/********** opening carosel and log in  **********/
+document.addEventListener("DOMContentLoaded", () => {
+    const body = document.querySelector("body")
+    body.addEventListener("click", () => {
+    //   hide & seek with the form
+    if (event.target.id ==="login"){
+           appBodyContainer.style.display = ""
+            carousel.style.display = "none"
+    console.log(carousel)
+        }
+        else if (event.target.className ==="logout"){
+            appBodyContainer.style.display = "none"
+            carousel.style.display = ""
+            console.log(appBodyContainer)
+
+        }
+  })
+})
 
 
 /********** SHOWS LISTINGS IN SIDEBAR  **********/
