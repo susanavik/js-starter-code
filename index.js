@@ -31,7 +31,6 @@ function renderEachListing(listingObj) {
 }
 
 
-
 /********** CLICKED LISTING DETAILS  **********/
 function showListingDetailsHelper(listingObj) {
     const listingImg = document.querySelector('#listing-details > div > img')
@@ -83,7 +82,7 @@ reviewForm.addEventListener('submit', event => {
     const review = event.target.review.value
 
 
-    fetch(`http://localhost:3000/bookings/`, {
+    fetch(`http://localhost:3000/listings/`, {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({listing_id, rating, review})
@@ -93,10 +92,12 @@ reviewForm.addEventListener('submit', event => {
             console.log(updatedListing)
         })
 
-    const newLi = document.createElement('li')
-    newLi.innerText = review
+    const reviewLi = document.createElement('li')
+    const ratingLi = document.createElement('li')
+    reviewLi.innerText = review
+    ratingLi.innerText = rating
     const reviewView = document.querySelector("#review-container > ul")
-    reviewView.append(newLi)
+    reviewView.append(reviewLi, ratingLi)
 
     })
 
