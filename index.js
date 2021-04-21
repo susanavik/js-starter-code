@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target.id ==="login"){
            appBodyContainer.style.display = ""
             carousel.style.display = "none"
-    console.log(carousel)
         }
         else if (event.target.className ==="logout"){
             appBodyContainer.style.display = "none"
@@ -93,7 +92,6 @@ function showListingDetails() {
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
                 })
-            console.log(event.target)
             }
     })
 }
@@ -122,10 +120,8 @@ reviewForm.addEventListener('submit', event => {
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({rating, review})
     })
-        .then(resp => resp.json())
-        .then(updatedListing => {
-            console.log(updatedListing)
-        })
+        // .then(resp => resp.json())
+        // .then(promise => {console.log(promise)})
 
     const newLi = document.createElement('li')
     newLi.innerText = `${review}
