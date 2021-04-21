@@ -14,20 +14,35 @@ logoPlacement.src = "assets/main-page-logo.png"
 
 /********** OPENING CAROSEL AND LOGIN  **********/
 document.addEventListener("DOMContentLoaded", () => {
+    const loginContainer = document.querySelector('div.container')
     const body = document.querySelector("body")
     body.addEventListener("click", event => {
         //   hide & seek with the form
         if (event.target.id === "login") {
             appBodyContainer.style.display = ""
             carousel.style.display = "none"
+            loginContainer.style.display = "none"
+            renderGuestName()
         }
         else if (event.target.className === "logout") {
             appBodyContainer.style.display = "none"
             carousel.style.display = ""
+            loginContainer.style.display = ""
             // console.log(appBodyContainer)
         }
     })
 })
+
+function renderGuestName() {
+    const userWelcome = document.querySelector('#welcome-bar h2')
+
+    fetch('http://localhost:3000/guests')
+        .then(resp => resp.json())
+        .then(userArr => {
+            userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
+        })
+}
+
 
 
 /********** SHOWS LISTINGS IN SIDEBAR  **********/
@@ -36,7 +51,6 @@ function fetchAllListings() {
         .then(response => response.json())
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
-                // console.log(listingObj)
                 showListingDetailsHelper(listingObj)
                 renderEachListing(listingObj)
             })
@@ -44,6 +58,7 @@ function fetchAllListings() {
 }
 
 function renderEachListing(listingObj) {
+    // console.log(listingObj)
 
     const listingLi = document.createElement('li.item')
     listingLi.dataset.id = listingObj.id
@@ -80,7 +95,7 @@ function showListingDetailsHelper(listingObj) {
 
     // const listingReview = document.querySelector("#review-container > ul")
     // listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
-    
+
 
 }
 
@@ -94,7 +109,7 @@ function showListingDetails() {
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
                 })
-            }
+        }
     })
 }
 
@@ -106,41 +121,50 @@ const listingImg = document.querySelector('#listing-details > div > img')
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
-    // let divCard = document.createElement('div')
-    // divCard.setAttribute('class', 'card')
-    // divCard.append(h2, img, p, btn)
-    // divCollect.append(divCard)
+    const newReviewObj = {
+        rating: event.target.rating.value,
+        comment: event.target.comment.value
+    }
+    // const listingId = listingImg.dataset.id
+    // console.log(listingId)
+    // console.log(listingImg.dataset.id)
 
-    const listing_id = listingImg.dataset.id
-
-    const rating = event.target.rating.value
-    const review = event.target.review.value
-
-
-    fetch(`http://localhost:3000/listings/${listing_id}`, {
-        method: 'PATCH',
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({rating, review})
+    fetch('http://localhost:3000/reviews', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(newReviewObj)
     })
-        // .then(resp => resp.json())
-        // .then(promise => {console.log(promise)})
-
-    const newLi = document.createElement('li')
-    newLi.innerText = `${review}
-     star rating: ${rating}`
-    // ratingLi.innerText = rating
-    const reviewView = document.querySelector("#review-container > ul")
-    const deleteButton = document.createElement('button')
-    deleteButton.className = 'delete-btn'
-    deleteButton.id = listing_id
-    deleteButton.innerText = "delete"
-
-    reviewView.append(newLi)
+        .then(resp => resp.json())
+        .then(review => {
+            console.log(review)
+            const newReviewLi = document.createElement('li')
+            newReviewLi.innerText = `${review.rating} ${review.comment}`
+            const viewReview = document.querySelector("#review-container ul.past-reviews")
+            viewReview.append(newReviewLi)
+            const deleteButton = document.createElement('button')
+            deleteButton.className = 'delete-btn'
+            // deleteButton.id = listing_id
+            deleteButton.innerText = "x"
+            viewReview.append(deleteButton)
     
-    reviewView.append(deleteButton)
+            if (event.target.className === 'delete-btn') {
+                const reviewLi = event.target.closest('li')
+                reviewLi.remove()
+    
+                fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(console.log)
+            }
+        })
+        
 
 
-
+    /********** DELETE REVIEW: STILL WORKING... **********/
 })
 
 /********** REMOVE REVIEW **********/
@@ -179,15 +203,16 @@ const reviewView = document.querySelector("#review-container > ul")
 /********** BOOKING FORM **********/
 const modal = document.querySelector("#modal")
 document.querySelector("#create-booking-button").addEventListener("click", () => {
-  modal.style.display = "block"
-  console.log(modal)
+    modal.style.display = "block"
+    //   console.log(modal)
 })
 // Hide the form
-modal.addEventListener("click", e => {
-//   e.preventDefault()
-  if (e.target.dataset.action === "close") {
+modal.addEventListener("submit", e => {
+    e.preventDefault()
+    console.log(e.target)
     modal.style.display = "none"
-  }
+    if (e.target.dataset.action === "close") {
+    }
 })
 
 
