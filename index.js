@@ -75,6 +75,10 @@ function showListingDetailsHelper(listingObj) {
     const listingMapImage = document.querySelector('#map-container img')
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
+
+    const listingReview = document.querySelector("#review-container > ul")
+    listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
+
 }
 
 function showListingDetails() {
@@ -111,22 +115,21 @@ reviewForm.addEventListener('submit', event => {
     const review = event.target.review.value
 
 
-    fetch(`http://localhost:3000/listings/`, {
-        method: 'POST',
+    fetch(`http://localhost:3000/listings/${listing_id}`, {
+        method: 'PATCH',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify({listing_id, rating, review})
+        body: JSON.stringify({rating, review})
     })
         .then(resp => resp.json())
         .then(updatedListing => {
             console.log(updatedListing)
         })
 
-    const reviewLi = document.createElement('li')
-    const ratingLi = document.createElement('li')
-    reviewLi.innerText = review
-    ratingLi.innerText = rating
+    const newLi = document.createElement('li')
+    newLi.innerText = `${review}, star rating: ${rating}`
+    // ratingLi.innerText = rating
     const reviewView = document.querySelector("#review-container > ul")
-    reviewView.append(reviewLi, ratingLi)
+    reviewView.append(newLi)
 
     })
 
