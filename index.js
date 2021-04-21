@@ -46,6 +46,7 @@ function renderEachListing(listingObj) {
 
     const listingLi = document.createElement('li.item')
     listingLi.dataset.id = listingObj.id
+    listingLi.className = "listing-item"
 
     listingLi.innerText = `
     ${listingObj.name}
@@ -76,8 +77,9 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
 
-    const listingReview = document.querySelector("#review-container > ul")
-    listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
+    // const listingReview = document.querySelector("#review-container > ul")
+    // listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
+    
 
 }
 
@@ -85,14 +87,14 @@ function showListingDetails() {
     const listingContainer = document.querySelector('#side-bar')
 
     listingContainer.addEventListener('click', event => {
-        console.log(event.target.dataset.id)
-
-        if (event.target.dataset.id)
+        if (event.target.className === "listing-item") {
             fetch(`http://localhost:3000/listings/${event.target.dataset.id}`)
                 .then(resp => resp.json())
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
                 })
+            console.log(event.target)
+            }
     })
 }
 
@@ -126,10 +128,20 @@ reviewForm.addEventListener('submit', event => {
         })
 
     const newLi = document.createElement('li')
-    newLi.innerText = `${review}, star rating: ${rating}`
+    newLi.innerText = `${review}
+     star rating: ${rating}`
     // ratingLi.innerText = rating
     const reviewView = document.querySelector("#review-container > ul")
+    const deleteButton = document.createElement('button')
+    deleteButton.className = 'delete-btn'
+    deleteButton.id = listing_id
+    deleteButton.innerText = "delete"
+
     reviewView.append(newLi)
+    
+    reviewView.append(deleteButton)
+
+
 
     })
 
