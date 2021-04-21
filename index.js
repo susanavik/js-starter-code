@@ -72,40 +72,65 @@ const listingImg = document.querySelector('#listing-details > div > img')
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
+    // let divCard = document.createElement('div')
+    // divCard.setAttribute('class', 'card')
+    // divCard.append(h2, img, p, btn)
+    // divCollect.append(divCard)
+
+    const listing_id = listingImg.dataset.id
 
     const rating = event.target.rating.value
     const review = event.target.review.value
-    const newLi = document.createElement('li')
-    newLi.innerText = review
-    const reviewView = document.querySelector("#review-container > ul")
-    reviewView.append(newLi)
 
-    
-    fetch(`http://localhost:3000/bookings/${listingImg.dataset.id}`, {
-        method: 'PATCH',
+
+    fetch(`http://localhost:3000/bookings/`, {
+        method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify({rating, review})
+        body: JSON.stringify({listing_id, rating, review})
     })
         .then(resp => resp.json())
         .then(updatedListing => {
             console.log(updatedListing)
         })
-})
+
+    const newLi = document.createElement('li')
+    newLi.innerText = review
+    const reviewView = document.querySelector("#review-container > ul")
+    reviewView.append(newLi)
+
+    })
 
 /********** REMOVE REVIEW **********/
 const reviewView = document.querySelector("#review-container > ul")
 
-reviewView.addEventListener('click', event => {
-    const reviewId = event.target.parentElement.dataset.id
-    event.target.parentElement.parentElement.remove()
-    deleteReview(reviewId)
-})
+// const deleteButton = document.createElement('button')
+//     // deleteButton.setAttribute('class', 'delete-btn')
+//     // deleteButton.setAttribute('id', booking.id)
+//     deleteButton.innerText = "delete"
+//     reviewView.append(deleteButton)
 
-function deleteReview(ReviewId){
-    fetch(`http://localhost:3000/bookings/${ReviewId}`, {
-      method: "DELETE"
-    })
-  }
+
+//     deleteButton.addEventListener('click', (event) => {
+//     console.log(event.target.dataset)
+//         delete(event)
+//     })
+//     // console.log(event.target.dataset)
+//     //     delete(event)
+//     // })
+
+
+// function delete(event){
+//     fetch(`http://localhost:3000/bookings/${ReviewId}`, {
+//       method: "DELETE"
+//     })
+// }
+
+// reviewView.addEventListener('click', event => {
+//     const reviewId = event.target.parentElement.dataset.id
+//     event.target.parentElement.parentElement.remove()
+//     deleteReview(reviewId)
+// })
+
 
 /********** APP INIT **********/
 fetchAllListings()
