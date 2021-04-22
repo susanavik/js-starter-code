@@ -93,10 +93,8 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
 
-    // const listingReview = document.querySelector("#review-container > ul")
-    // listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
-
-
+    const listingReview = document.querySelector("#review-container > ul")
+    listingReview.innerText = listingObj.reviews
 }
 
 function showListingDetails() {
@@ -121,11 +119,14 @@ const listingImg = document.querySelector('#listing-details > div > img')
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
+    const listingId = event.target.dataset.listingId
+    
     const newReviewObj = {
         rating: event.target.rating.value,
         comment: event.target.comment.value,
-        listing_id: listingImg.dataset.id
+        listing_id: listingId
     }
+    console.log(newReviewObj)
     // const listingId = listingImg.dataset.id
     // console.log(listingId)
     // console.log(listingImg.dataset.id)
@@ -139,12 +140,13 @@ reviewForm.addEventListener('submit', event => {
         body: JSON.stringify(newReviewObj)
     })
         .then(resp => resp.json())
-        .then(review => {
-            console.log(review)
+        .then(newReviewObj => {
+            console.log(newReviewObj)
             const newReviewLi = document.createElement('li')
-            newReviewLi.innerText = `${review.rating} ${review.comment}`
+            newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
             const viewReview = document.querySelector("#review-container ul.past-reviews")
             viewReview.append(newReviewLi)
+
             const deleteButton = document.createElement('button')
             deleteButton.className = 'delete-btn'
             // deleteButton.id = listing_id
