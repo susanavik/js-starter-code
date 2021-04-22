@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
             carousel.style.display = ""
             loginContainer.style.display = ""
             bannerImage.style.display = ""
-            // console.log(appBodyContainer)
         }
     })
 })
@@ -106,17 +105,15 @@ function showListingDetailsHelper(listingObj) {
     reviewForm.dataset.id = listingObj.id
     reviewView.dataset.id = listingObj.id
 
-    console.log(listingObj)
     reviewView.innerHTML = ""
     if (listingObj.reviews){
-    // console.log(listingObj.reviews[1].comment)
         listingObj.reviews.forEach(review => {
             const reviewComment = review.comment
             const reviewRating = review.rating
             const reviewLi = document.createElement('li')
-            reviewLi.innerText = reviewComment
+            reviewLi.innerText = `${reviewComment}
+             Rating: ${reviewRating}`
             reviewView.append(reviewLi)
-            console.log(review)
         })
     }
 }
@@ -137,32 +134,41 @@ function showListingDetails() {
 
 /********** REVIEW FORM **********/
 
-
-
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
-    const listingId = event.target.dataset.listingId
-    console.log(event.target)
+    const listingId = event.target.dataset.id
+    console.log(listingId)
     
     const newReviewObj = {
         rating: event.target.rating.value,
         comment: event.target.comment.value,
         listing_id: listingId
     }
-    console.log(newReviewObj)
-    // const listingId = listingImg.dataset.id
-    // console.log(listingId)
-    // console.log(listingImg.dataset.id)
+    // console.log(rating)
+    const reviewComment = event.target.comment.value
+    const reviewRating = event.target.rating.value
+    const reviewLi = document.createElement('li')
+    reviewLi.innerText = `${reviewComment}
+     Rating: ${reviewRating}`
+    reviewView.append(reviewLi)
 
-    // fetch('http://localhost:3000/reviews', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json'
-    //     },
-    //     body: JSON.stringify(newReviewObj)
-    // })
+    reviewForm.reset()
+    fetch('http://localhost:3000/reviews', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(newReviewObj)
+    })
+})
+
+
+
+
+
+
     //     .then(resp => resp.json())
     //     .then(newReviewObj => {
     //         console.log(newReviewObj)
@@ -189,7 +195,7 @@ reviewForm.addEventListener('submit', event => {
     //         }
         // })
         
-})
+
 
 /********** DELETE REVIEW: STILL WORKING... **********/
 
