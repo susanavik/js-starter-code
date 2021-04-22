@@ -102,6 +102,8 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.alt = listingObj.location
 
 
+    // const listingReview = document.querySelector("#review-container > ul")
+    // listingReview.innerText = listingObj.reviews
 }
 
 function showListingDetails() {
@@ -133,10 +135,14 @@ const listingImg = document.querySelector('#listing-details > div > img')
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
+    const listingId = event.target.dataset.listingId
+    
     const newReviewObj = {
         rating: event.target.rating.value,
-        comment: event.target.comment.value
+        comment: event.target.comment.value,
+        listing_id: listingId
     }
+    console.log(newReviewObj)
     // const listingId = listingImg.dataset.id
     // console.log(listingId)
     // console.log(listingImg.dataset.id)
@@ -150,12 +156,13 @@ reviewForm.addEventListener('submit', event => {
         body: JSON.stringify(newReviewObj)
     })
         .then(resp => resp.json())
-        .then(review => {
-            console.log(review)
+        .then(newReviewObj => {
+            console.log(newReviewObj)
             const newReviewLi = document.createElement('li')
-            newReviewLi.innerText = `${review.rating} ${review.comment}`
+            newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
             const viewReview = document.querySelector("#review-container ul.past-reviews")
             viewReview.append(newReviewLi)
+
             const deleteButton = document.createElement('button')
             deleteButton.className = 'delete-btn'
             // deleteButton.id = listing_id
@@ -231,6 +238,26 @@ modal.addEventListener("submit", event => {
 
     if (event.target.dataset.action === "close") {
     }
+// modal.addEventListener("submit", event => {
+// //     event.preventDefault()
+// //     // console.log(e.target)
+// //     modal.style.display = "none"
+// //     if (event.target.dataset.action === "close") {
+
+// modal.addEventListener("submit", e => {
+//     e.preventDefault()
+//     modal.style.display = "none"
+//     if (e.target.dataset.id === "new-booking-form") {
+//         const bookingId = parseInt(event.target.dataset.id)
+//         console.log(bookingId)
+
+//         // fetch ('http://localhost:3000/bookings', {
+
+//         // })
+//         // const bookingUl = document.createElement('ul.booking')
+        
+
+//     }
     const listingId = document.querySelector('.listing-img')
 
     const newBookingObj = {
