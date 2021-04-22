@@ -4,6 +4,9 @@ let visible = appBodyContainer.style.display = "none"
 const carousel = document.querySelector("#carousel-container > div.carousel-inner")
 const login = document.querySelector("#login")
 let currentUserId;
+const listingImg = document.querySelector('#listing-details > div > img')
+const reviewForm = document.querySelector("#create-rating")
+const reviewView = document.querySelector("#review-container > ul")
 
 
 
@@ -37,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
             carousel.style.display = ""
             loginContainer.style.display = ""
             bannerImage.style.display = ""
-            // console.log(appBodyContainer)
         }
     })
 })
@@ -83,7 +85,6 @@ function renderEachListing(listingObj) {
 
 /********** CLICKED LISTING DETAILS  **********/
 function showListingDetailsHelper(listingObj) {
-    const listingImg = document.querySelector('#listing-details > div > img')
     listingImg.src = listingObj.image
     listingImg.alt = listingObj.name
     listingImg.dataset.id = listingObj.id
@@ -101,9 +102,26 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
 
+    reviewForm.dataset.id = listingObj.id
+    reviewView.dataset.id = listingObj.id
 
-    // const listingReview = document.querySelector("#review-container > ul")
-    // listingReview.innerText = listingObj.reviews
+    reviewView.innerHTML = ""
+    if (listingObj.reviews){
+        listingObj.reviews.forEach(review => {
+            const reviewComment = review.comment
+            const reviewRating = review.rating
+            const reviewLi = document.createElement('li')
+            reviewLi.dataset.id = review.id
+            reviewLi.innerText = `${reviewComment}
+             Rating: ${reviewRating}`
+            reviewView.append(reviewLi)
+            const deleteButton = document.createElement('button')
+            deleteButton.className = 'delete-btn'
+            deleteButton.innerText = "x"
+            reviewView.append(deleteButton)
+        
+        })
+    }
 }
 
 function showListingDetails() {
@@ -129,24 +147,32 @@ function showListingDetails() {
 
 /********** REVIEW FORM **********/
 
-const reviewForm = document.querySelector("#review-container > div")
-const listingImg = document.querySelector('#listing-details > div > img')
-
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
-    const listingId = event.target.dataset.listingId
+    const listingId = event.target.dataset.id
+    console.log(listingId)
     
     const newReviewObj = {
         rating: event.target.rating.value,
         comment: event.target.comment.value,
         listing_id: listingId
     }
-    console.log(newReviewObj)
-    // const listingId = listingImg.dataset.id
-    // console.log(listingId)
-    // console.log(listingImg.dataset.id)
 
+    const reviewComment = event.target.comment.value
+    const reviewRating = event.target.rating.value
+    const reviewLi = document.createElement('li')
+    reviewLi.innerText = `${reviewComment}
+     Rating: ${reviewRating}`
+    reviewView.append(reviewLi)
+
+    const deleteButton = document.createElement('button')
+    deleteButton.className = 'delete-btn'
+    deleteButton.innerText = "x"
+    reviewView.append(deleteButton)
+
+
+    reviewForm.reset()
     fetch('http://localhost:3000/reviews', {
         method: 'POST',
         headers: {
@@ -155,69 +181,24 @@ reviewForm.addEventListener('submit', event => {
         },
         body: JSON.stringify(newReviewObj)
     })
-        .then(resp => resp.json())
-        .then(newReviewObj => {
-            console.log(newReviewObj)
-            const newReviewLi = document.createElement('li')
-            newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
-            const viewReview = document.querySelector("#review-container ul.past-reviews")
-            viewReview.append(newReviewLi)
-
-            const deleteButton = document.createElement('button')
-            deleteButton.className = 'delete-btn'
-            // deleteButton.id = listing_id
-            deleteButton.innerText = "x"
-            viewReview.append(deleteButton)
-
-            if (event.target.className === 'delete-btn') {
-                const reviewLi = event.target.closest('li')
-                reviewLi.remove()
-
-                fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(console.log)
-            }
-            event.target.reset()
-        })
-
-
-
-    /********** DELETE REVIEW: STILL WORKING... **********/
 })
 
-/********** REMOVE REVIEW **********/
-const reviewView = document.querySelector("#review-container > ul")
-
-// const deleteButton = document.createElement('button')
-//     // deleteButton.setAttribute('class', 'delete-btn')
-//     // deleteButton.setAttribute('id', booking.id)
-//     deleteButton.innerText = "delete"
-//     reviewView.append(deleteButton)
 
 
-//     deleteButton.addEventListener('click', (event) => {
-//     console.log(event.target.dataset)
-//         delete(event)
-//     })
-//     // console.log(event.target.dataset)
-//     //     delete(event)
-//     // })
 
-
-// function delete(event){
-//     fetch(`http://localhost:3000/bookings/${ReviewId}`, {
-//       method: "DELETE"
-//     })
-// }
-
-// reviewView.addEventListener('click', event => {
-//     const reviewId = event.target.parentElement.dataset.id
-//     event.target.parentElement.parentElement.remove()
-//     deleteReview(reviewId)
-// })
-
+/********** DELETE REVIEW: STILL WORKING... **********/
+reviewView.addEventListener("click", event =>{
+    
+    if (event.target.className === 'delete-btn') {
+        const reviewLi = event.target.previousElementSibling
+        reviewLi.remove()
+        event.target.remove()
+        const liId = reviewLi.dataset.id
+        fetch(`http://localhost:3000/reviews/${liId}`, {
+                    method: 'DELETE'
+                })
+    }
+})
 
 
 /********** BOOKING FORM **********/
