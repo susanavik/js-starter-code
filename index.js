@@ -111,6 +111,7 @@ function showListingDetailsHelper(listingObj) {
             const reviewComment = review.comment
             const reviewRating = review.rating
             const reviewLi = document.createElement('li')
+            reviewLi.dataset.id = review.id
             reviewLi.innerText = `${reviewComment}
              Rating: ${reviewRating}`
             reviewView.append(reviewLi)
@@ -150,7 +151,7 @@ reviewForm.addEventListener('submit', event => {
         comment: event.target.comment.value,
         listing_id: listingId
     }
-    
+
     const reviewComment = event.target.comment.value
     const reviewRating = event.target.rating.value
     const reviewLi = document.createElement('li')
@@ -178,62 +179,19 @@ reviewForm.addEventListener('submit', event => {
 
 
 
-
-
-
-        //     const deleteButton = document.createElement('button')
-        //     deleteButton.className = 'delete-btn'
-        //     // deleteButton.id = listing_id
-        //     deleteButton.innerText = "x"
-        //     viewReview.append(deleteButton)
-    
-        //     if (event.target.className === 'delete-btn') {
-        //         const reviewLi = event.target.closest('li')
-        //         reviewLi.remove()
-    
-        //         fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
-        //             method: 'DELETE'
-        //         })
-        //             .then(response => response.json())
-        //             .then(console.log)
-        //     }
-        // })
-        
-
-
 /********** DELETE REVIEW: STILL WORKING... **********/
-
-
-/********** REMOVE REVIEW **********/
-
-// const deleteButton = document.createElement('button')
-//     // deleteButton.setAttribute('class', 'delete-btn')
-//     // deleteButton.setAttribute('id', booking.id)
-//     deleteButton.innerText = "delete"
-//     reviewView.append(deleteButton)
-
-
-//     deleteButton.addEventListener('click', (event) => {
-//     console.log(event.target.dataset)
-//         delete(event)
-//     })
-//     // console.log(event.target.dataset)
-//     //     delete(event)
-//     // })
-
-
-// function delete(event){
-//     fetch(`http://localhost:3000/bookings/${ReviewId}`, {
-//       method: "DELETE"
-//     })
-// }
-
-// reviewView.addEventListener('click', event => {
-//     const reviewId = event.target.parentElement.dataset.id
-//     event.target.parentElement.parentElement.remove()
-//     deleteReview(reviewId)
-// })
-
+reviewView.addEventListener("click", event =>{
+    
+    if (event.target.className === 'delete-btn') {
+        const reviewLi = event.target.previousElementSibling
+        reviewLi.remove()
+        event.target.remove()
+        const liId = reviewLi.dataset.id
+        fetch(`http://localhost:3000/reviews/${liId}`, {
+                    method: 'DELETE'
+                })
+    }
+})
 
 
 /********** BOOKING FORM **********/
