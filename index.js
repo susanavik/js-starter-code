@@ -7,7 +7,7 @@ let currentUserId;
 const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
 const reviewView = document.querySelector("#review-container > ul")
-
+const logInForm = document.querySelector("#login-form > input")
 
 
 /********** LOGO  **********/
