@@ -7,7 +7,11 @@ const login = document.querySelector("#login")
 
 
 /********** LOGO  **********/
-const logoPlacement = document.querySelector("img.logo")
+
+const logoBanner = document.querySelector('body > div.banner > img')
+logoBanner.src = 'assets/cover.png'
+
+const logoPlacement = document.querySelector('#logo > img')
 logoPlacement.src = "assets/main-page-logo.png"
 
 
@@ -15,6 +19,8 @@ logoPlacement.src = "assets/main-page-logo.png"
 /********** OPENING CAROSEL AND LOGIN  **********/
 document.addEventListener("DOMContentLoaded", () => {
     const loginContainer = document.querySelector('div.container')
+    const bannerImage = document.querySelector('body > div.banner')
+
     const body = document.querySelector("body")
     body.addEventListener("click", event => {
         //   hide & seek with the form
@@ -22,19 +28,21 @@ document.addEventListener("DOMContentLoaded", () => {
             appBodyContainer.style.display = ""
             carousel.style.display = "none"
             loginContainer.style.display = "none"
+            bannerImage.style.display = "none"
             renderGuestName()
         }
         else if (event.target.className === "logout") {
             appBodyContainer.style.display = "none"
             carousel.style.display = ""
             loginContainer.style.display = ""
+            bannerImage.style.display = ""
             // console.log(appBodyContainer)
         }
     })
 })
 
 function renderGuestName() {
-    const userWelcome = document.querySelector('#welcome-bar h2')
+    const userWelcome = document.querySelector('#welcome-banner h2')
 
     fetch('http://localhost:3000/guests')
         .then(resp => resp.json())
@@ -51,8 +59,8 @@ function fetchAllListings() {
         .then(response => response.json())
         .then(listingsArr => {
             listingsArr.forEach(listingObj => {
-                showListingDetailsHelper(listingObj)
                 renderEachListing(listingObj)
+                showListingDetailsHelper(listingsArr[8])
             })
         })
 }
@@ -207,11 +215,11 @@ document.querySelector("#create-booking-button").addEventListener("click", () =>
     //   console.log(modal)
 })
 // Hide the form
-modal.addEventListener("submit", e => {
-    e.preventDefault()
-    console.log(e.target)
+modal.addEventListener("submit", event => {
+    event.preventDefault()
+    // console.log(e.target)
     modal.style.display = "none"
-    if (e.target.dataset.action === "close") {
+    if (event.target.dataset.action === "close") {
     }
 })
 

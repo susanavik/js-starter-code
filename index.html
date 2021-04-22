@@ -19,21 +19,28 @@
 
 
   <!-- image carousel -->
+  <div class='banner'>
+    <img class="logo" src="assets/placeholder-image.png" alt="Insert Logo Banner Here">
+  </div>
+
   <div id="carousel-container" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="1800">
         <img
-          src="https://static3.mansionglobal.com/production/media/article-images/0a2c7fce68fd99aa0961e1faea29ed32/large_1187.jpg"
+          src="https://images.exoticestates.com/files/presets/header_lg_xl/property/1578/gallery/st_barts_luxury_villa_vacation_rental_01.jpg"
           class="d-block" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="1800">
+        <img
+          src="https://robbreport.com/wp-content/uploads/2016/04/01a1.jpg?w=991"
+          class="d-block" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="1800">
+        <img src="https://mlv.villas/wp-content/uploads/2018/01/1-5.jpg" class="d-block" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="1800">
         <img
           src="https://photos.zillowstatic.com/fp/df5687be1224767c4b87d221ff470508-uncropped_scaled_within_1536_1152.webp"
-          class="d-block" alt="...">
-      </div>
-      <div class="carousel-item" data-bs-interval="1800">
-        <img
-          src="https://images.exoticestates.com/files/presets/header_lg_xl/property/1578/gallery/st_barts_luxury_villa_vacation_rental_01.jpg"
           class="d-block" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="1800">
@@ -46,24 +53,29 @@
       <div class="login">
         <button id="login">Login</button>
       </div>
+      <!-- <form id="login-form">
+        <h5>Login</h5>
+        <input type="text" name="username" placeholder="Username"> -->
     </div>
 
 
-  <!-- landing page -->
-  <div class="parent">
-    
-    <div id="logo">
-      <img class="logo" src="assets/placeholder-image.png" alt="Insert Logo Image Here">
-    </div>
+    <!-- landing page -->
+    <div class="parent">
+
+      <div id="logo">
+        <img class="logo" src="assets/placeholder-image.png" alt="Insert Logo Image Here">
+      </div>
 
 
-      <div id="welcome-bar">
+      <div id="welcome-banner">
         <h2>Welcome Back, [insert username here]!</h2>
       </div>
 
 
       <div id="side-bar">
         <ul class="aside">
+          <h4>Available Listings:</h4>
+          <hr>
           <!-- Listing Names -->
         </ul>
       </div>
@@ -91,12 +103,11 @@
 
       <div id="review-container">
         <h4>Past Reviews</h4>
-        <ul class="past-reviews"> 
-            <!-- Add new reviews here -->
+        <ul class="past-reviews">
+          <!-- Add new reviews here -->
         </ul>
         <br>
         <hr>
-        <br>
         <div class="create-review">
           <form id="create-rating" data-id="insert listing ID">
             <p><label for="rating">Rating:</label>
@@ -105,22 +116,34 @@
             <p><label for="comment">Comment: </label>
               <input type="text" name="comment" placeholder="Tell Us How You Really Feel">
               <input type="submit" value="Add">
-            </form>
-          </div>
+          </form>
         </div>
-        
+      </div>
+
       <div id="modal" style="display: none;" data-action="close">
         <form id="new-booking-form">
           <h2>Reserve Stay</h2>
-          <label for="checkin">Check-In</label>
+          <label for="checkin">Check-In:</label>
           <input type="date" id="checkin" name="checkin">
-          <label for="checkout">Check-Out</label>
+          <label for="checkout">Check-Out:</label>
           <input type="date" id="checkout" name="checkout">
+          <label for="note">Note:</label>
+          <input type="text" name="comment" placeholder="Send A Note to The Host">
           <input type="submit" value="Complete Reservation">
-        </div>
+          <p>-OR-</p>
+          <input type="submit" value="Exit Reservation">
+      </div>
+
+      <div id="reservations">
+        <h4>Reservations:</h4>
+        <hr>
+        <ul>
+          <!-- Add New Reservations Here -->
+        </ul>
         <div id="logout">
           <button class="logout" type="button">Logout</button>
         </div>
+      </div>
 
 </body>
 
