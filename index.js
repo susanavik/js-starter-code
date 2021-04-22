@@ -3,6 +3,9 @@ const appBodyContainer = document.querySelector("div.parent")
 let visible = appBodyContainer.style.display = "none"
 const carousel = document.querySelector("#carousel-container > div.carousel-inner")
 const login = document.querySelector("#login")
+const listingImg = document.querySelector('#listing-details > div > img')
+const reviewForm = document.querySelector("#create-rating")
+const reviewView = document.querySelector("#review-container > ul")
 
 
 
@@ -83,7 +86,6 @@ function renderEachListing(listingObj) {
 
 /********** CLICKED LISTING DETAILS  **********/
 function showListingDetailsHelper(listingObj) {
-    const listingImg = document.querySelector('#listing-details > div > img')
     listingImg.src = listingObj.image
     listingImg.alt = listingObj.name
     listingImg.dataset.id = listingObj.id
@@ -101,15 +103,22 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
 
-    const listingReview = document.querySelector("#review-container > ul")
-    if (listingObj.reviews)
-        {listingObj.reviews.forEach(review => {
+    reviewForm.dataset.id = listingObj.id
+    reviewView.dataset.id = listingObj.id
+
+    console.log(listingObj)
+    reviewView.innerHTML = ""
+    if (listingObj.reviews){
+    // console.log(listingObj.reviews[1].comment)
+        listingObj.reviews.forEach(review => {
             const reviewComment = review.comment
             const reviewRating = review.rating
             const reviewLi = document.createElement('li')
             reviewLi.innerText = reviewComment
-            listingReview.append(reviewLi)
-        })}
+            reviewView.append(reviewLi)
+            console.log(review)
+        })
+    }
 }
 
 function showListingDetails() {
@@ -128,13 +137,13 @@ function showListingDetails() {
 
 /********** REVIEW FORM **********/
 
-const reviewForm = document.querySelector("#review-container > div")
-const listingImg = document.querySelector('#listing-details > div > img')
+
 
 reviewForm.addEventListener('submit', event => {
     event.preventDefault()
 
     const listingId = event.target.dataset.listingId
+    console.log(event.target)
     
     const newReviewObj = {
         rating: event.target.rating.value,
@@ -146,47 +155,46 @@ reviewForm.addEventListener('submit', event => {
     // console.log(listingId)
     // console.log(listingImg.dataset.id)
 
-    fetch('http://localhost:3000/reviews', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(newReviewObj)
-    })
-        .then(resp => resp.json())
-        .then(newReviewObj => {
-            console.log(newReviewObj)
-            const newReviewLi = document.createElement('li')
-            newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
-            const viewReview = document.querySelector("#review-container ul.past-reviews")
-            viewReview.append(newReviewLi)
+    // fetch('http://localhost:3000/reviews', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Accept': 'application/json'
+    //     },
+    //     body: JSON.stringify(newReviewObj)
+    // })
+    //     .then(resp => resp.json())
+    //     .then(newReviewObj => {
+    //         console.log(newReviewObj)
+    //         const newReviewLi = document.createElement('li')
+    //         newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
+    //         const viewReview = document.querySelector("#review-container ul.past-reviews")
+    //         viewReview.append(newReviewLi)
 
-            const deleteButton = document.createElement('button')
-            deleteButton.className = 'delete-btn'
-            // deleteButton.id = listing_id
-            deleteButton.innerText = "x"
-            viewReview.append(deleteButton)
+    //         const deleteButton = document.createElement('button')
+    //         deleteButton.className = 'delete-btn'
+    //         // deleteButton.id = listing_id
+    //         deleteButton.innerText = "x"
+    //         viewReview.append(deleteButton)
     
-            if (event.target.className === 'delete-btn') {
-                const reviewLi = event.target.closest('li')
-                reviewLi.remove()
+    //         if (event.target.className === 'delete-btn') {
+    //             const reviewLi = event.target.closest('li')
+    //             reviewLi.remove()
     
-                fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.json())
-                    .then(console.log)
-            }
-        })
+    //             fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
+    //                 method: 'DELETE'
+    //             })
+    //                 .then(response => response.json())
+    //                 .then(console.log)
+    //         }
+        // })
         
-
-
-    /********** DELETE REVIEW: STILL WORKING... **********/
 })
 
+/********** DELETE REVIEW: STILL WORKING... **********/
+
+
 /********** REMOVE REVIEW **********/
-const reviewView = document.querySelector("#review-container > ul")
 
 // const deleteButton = document.createElement('button')
 //     // deleteButton.setAttribute('class', 'delete-btn')
@@ -251,3 +259,4 @@ modal.addEventListener("submit", e => {
 /********** APP INIT **********/
 fetchAllListings()
 showListingDetails()
+
