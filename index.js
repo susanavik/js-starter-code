@@ -102,7 +102,14 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.alt = listingObj.location
 
     const listingReview = document.querySelector("#review-container > ul")
-    listingReview.innerText = listingObj.reviews
+    if (listingObj.reviews)
+        {listingObj.reviews.forEach(review => {
+            const reviewComment = review.comment
+            const reviewRating = review.rating
+            const reviewLi = document.createElement('li')
+            reviewLi.innerText = reviewComment
+            listingReview.append(reviewLi)
+        })}
 }
 
 function showListingDetails() {
