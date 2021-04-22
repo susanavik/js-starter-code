@@ -3,6 +3,7 @@ const appBodyContainer = document.querySelector("div.parent")
 let visible = appBodyContainer.style.display = "none"
 const carousel = document.querySelector("#carousel-container > div.carousel-inner")
 const login = document.querySelector("#login")
+let currentUserId;
 
 
 
@@ -40,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 })
-
 function renderGuestName() {
     const userWelcome = document.querySelector('#welcome-banner h2')
 
@@ -48,6 +48,7 @@ function renderGuestName() {
         .then(resp => resp.json())
         .then(userArr => {
             userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
+            currentUserId = userArr[0].id
         })
 }
 
@@ -157,19 +158,20 @@ reviewForm.addEventListener('submit', event => {
             // deleteButton.id = listing_id
             deleteButton.innerText = "x"
             viewReview.append(deleteButton)
-    
+
             if (event.target.className === 'delete-btn') {
                 const reviewLi = event.target.closest('li')
                 reviewLi.remove()
-    
+
                 fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
                     method: 'DELETE'
                 })
                     .then(response => response.json())
                     .then(console.log)
             }
+            event.target.reset()
         })
-        
+
 
 
     /********** DELETE REVIEW: STILL WORKING... **********/
@@ -214,6 +216,12 @@ document.querySelector("#create-booking-button").addEventListener("click", () =>
     modal.style.display = "block"
     //   console.log(modal)
 })
+
+const exitButton = document.querySelector('#new-booking-form > input.exit-button')
+exitButton.addEventListener('click', event => {
+    modal.style.display = "none"
+})
+
 // Hide the form
 modal.addEventListener("submit", event => {
     event.preventDefault()
@@ -221,6 +229,29 @@ modal.addEventListener("submit", event => {
     modal.style.display = "none"
     if (event.target.dataset.action === "close") {
     }
+
+    const listingId = document.querySelector('.listing-img')
+
+    const newBookingObj = {
+        checkin: event.target.checkin.value,
+        checkout: event.target.checkout.value,
+        listing_id: listingId.dataset.id,
+        guest_id: currentUserId
+    }
+
+    fetch('http://localhost:3000/bookings', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(newBookingObj)
+    })
+        .then(resp => resp.json())
+        .then(bookingObj => {
+            console.log(bookingObj)
+        })
+        event.target.reset()
 })
 
 
