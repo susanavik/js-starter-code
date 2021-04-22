@@ -67,7 +67,6 @@ function fetchAllListings() {
 }
 
 function renderEachListing(listingObj) {
-    // console.log(listingObj)
 
     const listingLi = document.createElement('li.item')
     listingLi.dataset.id = listingObj.id
@@ -102,9 +101,6 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.src = listingObj.map_img
     listingMapImage.alt = listingObj.location
 
-    // const listingReview = document.querySelector("#review-container > ul")
-    // listingReview.innerHTML += `<li> ${listingObj.review}, star rating: ${listingObj.rating} </li>`
-
 
 }
 
@@ -117,10 +113,17 @@ function showListingDetails() {
                 .then(resp => resp.json())
                 .then(singleListing => {
                     showListingDetailsHelper(singleListing)
+                    const listingRes = document.querySelector('#reservations > ul')
+                    listingRes.innerHTML = ""
+                    singleListing.bookings.forEach(singleBooking => {
+                        showBookingsHelper(singleBooking)
+                    })
                 })
         }
     })
 }
+
+
 
 /********** REVIEW FORM **********/
 
@@ -216,7 +219,6 @@ document.querySelector("#create-booking-button").addEventListener("click", () =>
     modal.style.display = "block"
     //   console.log(modal)
 })
-
 const exitButton = document.querySelector('#new-booking-form > input.exit-button')
 exitButton.addEventListener('click', event => {
     modal.style.display = "none"
@@ -225,11 +227,10 @@ exitButton.addEventListener('click', event => {
 // Hide the form
 modal.addEventListener("submit", event => {
     event.preventDefault()
-    // console.log(e.target)
     modal.style.display = "none"
+
     if (event.target.dataset.action === "close") {
     }
-
     const listingId = document.querySelector('.listing-img')
 
     const newBookingObj = {
@@ -238,7 +239,6 @@ modal.addEventListener("submit", event => {
         listing_id: listingId.dataset.id,
         guest_id: currentUserId
     }
-
     fetch('http://localhost:3000/bookings', {
         method: 'POST',
         headers: {
@@ -247,14 +247,32 @@ modal.addEventListener("submit", event => {
         },
         body: JSON.stringify(newBookingObj)
     })
-        .then(resp => resp.json())
-        .then(bookingObj => {
-            console.log(bookingObj)
-        })
-        event.target.reset()
+    showBookingsHelper(newBookingObj)
+
+    event.target.reset()
 })
+
+function showBookingsHelper(newBookingObj) {
+    const listingRes = document.querySelector('#reservations > ul')
+    const resLi = document.createElement('li.res')
+    resLi.innerText = `${newBookingObj.checkin} - ${newBookingObj.checkout}`
+    // console.log(newBookingObj)
+    listingRes.append(resLi)
+}
+
+// function getRes() {
+//     fetch('http://localhost:3000/bookings')
+//         .then(resp => resp.json())
+//         .then(bookingElement => {
+//             bookingElement.forEach(bookingObj => {
+//                 showBookingsHelper(bookingObj)
+//             })
+//         })
+// }
+
 
 
 /********** APP INIT **********/
 fetchAllListings()
 showListingDetails()
+// getRes()
