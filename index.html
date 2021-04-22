@@ -129,10 +129,24 @@
           <label for="checkout">Check-Out:</label>
           <input type="date" id="checkout" name="checkout">
           <label for="note">Note:</label>
-          <input type="text" name="comment" placeholder="Send A Note to The Host">
+          <input type="text" id="note" name="comment" placeholder="Send A Note to The Host">
           <input type="submit" value="Complete Reservation">
           <p>-OR-</p>
           <input type="button" value="Exit Reservation" class="exit-button">
+      </div>
+
+      <div id="edit-modal" style="display: none;" data-action="close">
+        <form id="edit-booking-form">
+          <h2>Edit Reservation</h2>
+          <label for="checkin">Check-In:</label>
+          <input type="date" id="checkin" name="checkin">
+          <label for="checkout">Check-Out:</label>
+          <input type="date" id="checkout" name="checkout">
+          <label for="note">Note:</label>
+          <input type="text" id="note" name="comment" placeholder="Edit Your Note to The Host">
+          <input type="submit" value="Save Reservation">
+          <p>-OR-</p>
+          <input type="button" value="Exit Edit Form" class="exit-edit-button">
       </div>
 
       <div id="reservations">

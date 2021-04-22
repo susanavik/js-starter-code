@@ -6,8 +6,8 @@ const login = document.querySelector("#login")
 let currentUserId;
 const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
-const reviewView = document.querySelector("#review-container > ul")
-const reservationView = document.querySelector('#reservations ul')
+const viewReview = document.querySelector("#review-container > ul")
+const viewReservation = document.querySelector('#reservations ul')
 
 
 
@@ -105,9 +105,9 @@ function showListingDetailsHelper(listingObj) {
     listingMapImage.alt = listingObj.location
 
     reviewForm.dataset.id = listingObj.id
-    reviewView.dataset.id = listingObj.id
+    viewReview.dataset.id = listingObj.id
 
-    reviewView.innerHTML = ""
+    viewReview.innerHTML = ""
     if (listingObj.reviews) {
         listingObj.reviews.forEach(review => {
             const reviewComment = review.comment
@@ -116,12 +116,12 @@ function showListingDetailsHelper(listingObj) {
             reviewLi.dataset.id = review.id
             reviewLi.innerText = ` Stars: ${reviewRating}
             Note: ${reviewComment}`
-            reviewView.append(reviewLi)
+            viewReview.append(reviewLi)
 
             const deleteButton = document.createElement('button')
             deleteButton.className = 'delete-btn'
             deleteButton.innerText = "x"
-            reviewView.append(deleteButton)
+            viewReview.append(deleteButton)
         })
     }
 }
@@ -166,12 +166,12 @@ function reviewFormFunc() {
         const reviewLi = document.createElement('li')
         reviewLi.innerText = `${reviewComment}
          Rating: ${reviewRating}`
-        reviewView.append(reviewLi)
+        viewReview.append(reviewLi)
 
         const deleteButton = document.createElement('button')
         deleteButton.className = 'delete-btn'
         deleteButton.innerText = "x"
-        reviewView.append(deleteButton)
+        viewReview.append(deleteButton)
 
 
         reviewForm.reset()
@@ -190,8 +190,8 @@ function reviewFormFunc() {
 
 
 /********** DELETE REVIEW **********/
-function reviewViewFunc() {
-    reviewView.addEventListener("click", event => {
+function viewReviewFunc() {
+    viewReview.addEventListener("click", event => {
 
         if (event.target.className === 'delete-btn') {
             const reviewLi = event.target.previousElementSibling
@@ -266,26 +266,90 @@ function showBookingsHelper(newBookingObj) {
 
     const resDeleteButton = document.createElement('button')
     resDeleteButton.className = 'res-delete-btn'
-    resDeleteButton.innerText = "x"
+    resDeleteButton.innerText = "Delete"
     listingRes.append(resDeleteButton)
+
+    const resEditButton = document.createElement('button')
+    resEditButton.className = 'res-edit-btn'
+    resEditButton.innerText = "Edit"
+    listingRes.append(resEditButton)
 }
 
+
+
+
 /********** DELETE RESERVATION **********/
-function reservationViewFunc() {
-    reservationView.addEventListener("click", event => {
+function viewReservationFunc() {
+    viewReservation.addEventListener("click", event => {
 
         if (event.target.className === 'res-delete-btn') {
             const resLi = event.target.previousElementSibling
             resLi.remove()
             event.target.remove()
             const resLiId = resLi.dataset.id
-            console.log(resLiId)
+            
             fetch(`http://localhost:3000/bookings/${resLiId}`, {
                 method: 'DELETE'
             })
+        }else if(event.target.className === 'res-edit-btn') {
+            const resId = event.target.previousElementSibling.previousElementSibling.dataset.id
+            editResFormFunc(resId)
         }
     })
 }
+
+
+
+
+/********** EDIT RESERVATION: WORK IN PROGRESS **********/
+// Currently working on being able to edit this form. Old info not showing 
+// up when Edit button is clicked. Not sure why as 'resId' is pointing to that specific bookings'
+// id. And it is also being used in the fetch http request. Also, unable to get CSS working on this
+// form for some reason. If you cick edit button once, nothing happens. If clicked again,
+// form pops up in the upper right hand corner of the page. It's currently 7:03pm and I'm going 
+// to take a break. 
+
+
+function editResFormFunc(resId) {
+    // console.log(resId)
+    const editModal = document.querySelector("#edit-modal")
+    document.querySelector(".res-edit-btn").addEventListener("click", () => {
+        editModal.style.display = "block"
+    })
+    
+    const exitEditButton = document.querySelector('#edit-modal > input.exit-edit-button')
+    exitEditButton.addEventListener('click', event => {
+        editModal.style.display = "none"
+    })
+
+    editModal.addEventListener("submit", event => {
+        event.preventDefault()
+        editModal.style.display = "none"
+        
+        if (event.target.dataset.action === "close") {
+        }
+        // const editCheckin = document.querySelector('#checkin')
+        // const editCheckout = document.querySelector('#checkout')
+        // const editNote = document.querySelector('#note')
+        
+            const checkin = event.target.checkin.value
+            const checkout = event.target.checkout.value
+            const listing_id = resId
+            const guest_id = currentUserId
+            // note: event.target.comment.value
+    
+        fetch(`http://localhost:3000/bookings/${resId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({checkin, checkout, listing_id, guest_id})
+        })
+    })
+}
+
+
 
 
 /********** APP INIT **********/
@@ -293,5 +357,5 @@ fetchAllListings()
 showListingDetails()
 newBookingForm()
 reviewFormFunc()
-reviewViewFunc()
-reservationViewFunc()
+viewReviewFunc()
+viewReservationFunc()
