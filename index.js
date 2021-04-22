@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 function renderGuestName() {
     const userWelcome = document.querySelector('#welcome-banner h2')
-
-    fetch('http://localhost:3000/guests')
-        .then(resp => resp.json())
-        .then(userArr => {
-            userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
-            currentUserId = userArr[0].id
-        })
+    
+    // fetch('http://localhost:3000/guests')
+    //     .then(resp => resp.json())
+    //     .then(userArr => {
+    //         userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
+    //         currentUserId = userArr[0].id
+    //     })
 }
 
 
