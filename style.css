@@ -117,7 +117,7 @@
         border: 1px solid transparent;
         transition: background-color .3s ease;
         line-height: 1.5rem;
-        /* overflow: scroll; */
+        overflow-y: scroll;
         height: fit-content;
         overflow-y:auto;
         margin-top: -30px;
@@ -190,6 +190,7 @@
         grid-area: 4 / 4 / 6 / 6; 
         /* height: fit-content; */
         /* border:1em solid rgba(216,191,216,0.8); */
+        overflow-y: scroll;
     }
     
     #review-container ul form { 
@@ -208,6 +209,13 @@
         margin-left: 2rem;
         margin-right: auto;
         /* border:1em solid rgba(216,191,216,0.8); */
+        overflow-y: scroll;
+    }
+
+    #reservations ul {
+        margin: 0 auto;
+        padding: 0;
+        overflow-y: scroll;
     }
 
     #reservations button.logout {
