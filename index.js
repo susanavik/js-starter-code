@@ -8,6 +8,7 @@ const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
 const reviewView = document.querySelector("#review-container > ul")
 const reservationView = document.querySelector('#reservations ul')
+const logInput = document.querySelector("#login-form > input[type=text]")
 
 
 
@@ -29,11 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
     body.addEventListener("click", event => {
         //   hide & seek with the form
         if (event.target.id === "login") {
+            const name = logInput.value
             appBodyContainer.style.display = ""
             carousel.style.display = "none"
             loginContainer.style.display = "none"
             bannerImage.style.display = "none"
-            renderGuestName()
+            renderGuestName(name)
         }
         else if (event.target.className === "logout") {
             appBodyContainer.style.display = "none"
@@ -44,15 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 })
 
-function renderGuestName() {
+function renderGuestName(name) {
     const userWelcome = document.querySelector('#welcome-banner h2')
+    userWelcome.textContent = `Welcome Back, ${name}!`
 
-    fetch('http://localhost:3000/guests')
-        .then(resp => resp.json())
-        .then(userArr => {
-            userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
-            currentUserId = userArr[0].id
-        })
+    // fetch('http://localhost:3000/guests')
+    //     .then(resp => resp.json())
+    //     .then(userArr => {
+    //         userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
+    //         currentUserId = userArr[0].id
+    //     })
 }
 
 
