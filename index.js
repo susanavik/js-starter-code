@@ -114,6 +114,11 @@ function showListingDetailsHelper(listingObj) {
             reviewLi.innerText = `${reviewComment}
              Rating: ${reviewRating}`
             reviewView.append(reviewLi)
+            const deleteButton = document.createElement('button')
+            deleteButton.className = 'delete-btn'
+            deleteButton.innerText = "x"
+            reviewView.append(deleteButton)
+        
         })
     }
 }
@@ -145,13 +150,19 @@ reviewForm.addEventListener('submit', event => {
         comment: event.target.comment.value,
         listing_id: listingId
     }
-    // console.log(rating)
+    
     const reviewComment = event.target.comment.value
     const reviewRating = event.target.rating.value
     const reviewLi = document.createElement('li')
     reviewLi.innerText = `${reviewComment}
      Rating: ${reviewRating}`
     reviewView.append(reviewLi)
+
+    const deleteButton = document.createElement('button')
+    deleteButton.className = 'delete-btn'
+    deleteButton.innerText = "x"
+    reviewView.append(deleteButton)
+
 
     reviewForm.reset()
     fetch('http://localhost:3000/reviews', {
@@ -169,30 +180,23 @@ reviewForm.addEventListener('submit', event => {
 
 
 
-    //     .then(resp => resp.json())
-    //     .then(newReviewObj => {
-    //         console.log(newReviewObj)
-    //         const newReviewLi = document.createElement('li')
-    //         newReviewLi.innerText = `${newReviewObj.rating} ${newReviewObj.comment}`
-    //         const viewReview = document.querySelector("#review-container ul.past-reviews")
-    //         viewReview.append(newReviewLi)
 
-    //         const deleteButton = document.createElement('button')
-    //         deleteButton.className = 'delete-btn'
-    //         // deleteButton.id = listing_id
-    //         deleteButton.innerText = "x"
-    //         viewReview.append(deleteButton)
+        //     const deleteButton = document.createElement('button')
+        //     deleteButton.className = 'delete-btn'
+        //     // deleteButton.id = listing_id
+        //     deleteButton.innerText = "x"
+        //     viewReview.append(deleteButton)
     
-    //         if (event.target.className === 'delete-btn') {
-    //             const reviewLi = event.target.closest('li')
-    //             reviewLi.remove()
+        //     if (event.target.className === 'delete-btn') {
+        //         const reviewLi = event.target.closest('li')
+        //         reviewLi.remove()
     
-    //             fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
-    //                 method: 'DELETE'
-    //             })
-    //                 .then(response => response.json())
-    //                 .then(console.log)
-    //         }
+        //         fetch(`http://localhost:3000/reviews/${reviewLi.dataset.id}`, {
+        //             method: 'DELETE'
+        //         })
+        //             .then(response => response.json())
+        //             .then(console.log)
+        //     }
         // })
         
 
