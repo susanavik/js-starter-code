@@ -6,6 +6,7 @@ const login = document.querySelector("#login")
 let currentUserId;
 const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
+const logInput = document.querySelector("#login-form > input[type=text]")
 const viewReview = document.querySelector("#review-container > ul")
 const viewReservation = document.querySelector('#reservations ul')
 
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function renderGuestName(name) {
     const userWelcome = document.querySelector('#welcome-banner h2')
-    userWelcome.textContent = `Welcome Back, ${name}`
+    userWelcome.textContent = `Welcome Back, ${name}!`
 
     fetch('http://localhost:3000/guests')
         .then(resp => resp.json())
@@ -292,8 +293,8 @@ function viewReservationFunc() {
             fetch(`http://localhost:3000/bookings/${resLiId}`, {
                 method: 'DELETE'
             })
-        } 
-        // else if (event.target.className === 'res-edit-btn') {
+        }
+        // else if(event.target.className === 'res-edit-btn') {
         //     const resId = event.target.previousElementSibling.previousElementSibling.dataset.id
         //     editResFormFunc(resId)
         // }
@@ -318,7 +319,7 @@ function viewReservationFunc() {
 //     document.querySelector(".res-edit-btn").addEventListener("click", () => {
 //         editModal.style.display = "block"
 //     })
-
+    
 //     const exitEditButton = document.querySelector('#edit-modal > input.exit-edit-button')
 //     exitEditButton.addEventListener('click', event => {
 //         editModal.style.display = "none"
@@ -327,19 +328,19 @@ function viewReservationFunc() {
 //     editModal.addEventListener("submit", event => {
 //         event.preventDefault()
 //         editModal.style.display = "none"
-
+        
 //         if (event.target.dataset.action === "close") {
 //         }
 //         // const editCheckin = document.querySelector('#checkin')
 //         // const editCheckout = document.querySelector('#checkout')
 //         // const editNote = document.querySelector('#note')
-
-//         const checkin = event.target.checkin.value
-//         const checkout = event.target.checkout.value
-//         const listing_id = resId
-//         const guest_id = currentUserId
-//         // note: event.target.comment.value
-
+        
+//             const checkin = event.target.checkin.value
+//             const checkout = event.target.checkout.value
+//             const listing_id = resId
+//             const guest_id = currentUserId
+//             // note: event.target.comment.value
+    
 //         fetch(`http://localhost:3000/bookings/${resId}`, {
 //             method: 'PATCH',
 //             headers: {
