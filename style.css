@@ -155,8 +155,8 @@
 
     .location {
         position: absolute;
-        top: 8px;
-        left: 16px;
+        top: 21px;
+        left: 21px;
         font-size: 18px;
         opacity: 3;
         /* background-color: rgba(216,191,216,0.8); */
@@ -174,11 +174,17 @@
 
     .listing-item:hover {
         background-color: rgba(99, 12, 238, 0.5);
-      }
+        color:#FFFFFF;
+        border-color:#FFFFFF;
+    }
+        
+
       .listing-item:hover {
-        background-color: rgb(99 12 238 / 19%);
-      }
-     .listing-item{
+        background-color: rgba(99 12 238 / 19%);
+    }
+
+     .listing-item {
+         margin-top: -6px;
         display: grid;
         grid-template-columns: repeat(1,1.2fr);
         grid-auto-rows: 45%;
@@ -230,7 +236,7 @@
         /* height: fit-content; */
         text-align: left;
         width: 70%;
-        margin-top: 17rem;
+        margin-top: 9rem;
         margin-left: 2rem;
         margin-right: auto;
         /* border:1em solid rgba(216,191,216,0.8); */
@@ -255,7 +261,7 @@
 /********** BUTTON STYLING - ALL **********/   
     button.item {
         position: absolute;
-        bottom: 8px;
+        bottom: 15px;
         right: 16px;
         display:inline-block; 
         padding: -0.54em 1.6em;
