@@ -125,6 +125,21 @@
 
     }
 
+    .listing-item:hover {
+        background-color: rgba(99, 12, 238, 0.5);
+      }
+
+      .listing-item:hover {
+        background-color: rgb(99 12 238 / 19%);
+      }
+
+     .listing-item{
+        display: grid;
+        grid-template-columns: repeat(1,1.2fr);
+        grid-auto-rows: 45%;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+      }
       
 /********** LISTING DETAILS  **********/
     #listing-details { 

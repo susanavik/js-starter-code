@@ -122,7 +122,9 @@ function showListingDetailsHelper(listingObj) {
             viewReview.append(reviewLi)
 
             const deleteButton = document.createElement('button')
-            deleteButton.className = 'delete-btn'
+            // <button type="button" class="btn btn-primary">Primary</button>
+            deleteButton.className ='btn btn-danger'
+            // deleteButton.className = 'delete-btn'
             deleteButton.innerText = "x"
             viewReview.append(deleteButton)
         })
@@ -172,7 +174,8 @@ function reviewFormFunc() {
         viewReview.append(reviewLi)
 
         const deleteButton = document.createElement('button')
-        deleteButton.className = 'delete-btn'
+        // deleteButton.className = 'delete-btn'
+        deleteButton.className ='btn btn-danger'
         deleteButton.innerText = "x"
         viewReview.append(deleteButton)
 
@@ -196,7 +199,7 @@ function reviewFormFunc() {
 function viewReviewFunc() {
     viewReview.addEventListener("click", event => {
 
-        if (event.target.className === 'delete-btn') {
+        if (event.target.className === 'btn btn-danger') {
             const reviewLi = event.target.previousElementSibling
             reviewLi.remove()
             event.target.remove()
@@ -267,14 +270,15 @@ function showBookingsHelper(newBookingObj) {
     listingRes.append(resLi)
 
     const resDeleteButton = document.createElement('button')
-    resDeleteButton.className = 'res-delete-btn'
+    resDeleteButton.className = 'btn btn-danger'
+    // resDeleteButton.className = 'res-delete-btn'
     resDeleteButton.innerText = "Delete"
     listingRes.append(resDeleteButton)
 
-    const resEditButton = document.createElement('button')
-    resEditButton.className = 'res-edit-btn'
-    resEditButton.innerText = "Edit"
-    listingRes.append(resEditButton)
+    // const resEditButton = document.createElement('button')
+    // resEditButton.className = 'res-edit-btn'
+    // resEditButton.innerText = "Edit"
+    // listingRes.append(resEditButton)
 }
 
 
@@ -284,7 +288,7 @@ function showBookingsHelper(newBookingObj) {
 function viewReservationFunc() {
     viewReservation.addEventListener("click", event => {
 
-        if (event.target.className === 'res-delete-btn') {
+        if (event.target.className === 'btn btn-danger') {
             const resLi = event.target.previousElementSibling
             resLi.remove()
             event.target.remove()
@@ -362,7 +366,6 @@ var marker = new mapboxgl.Marker()
 
 // Set options
 var marker = new mapboxgl.Marker({
-    draggable: true
 }).setLngLat([-74.0083, 40.7077])
     .addTo(map);
 
