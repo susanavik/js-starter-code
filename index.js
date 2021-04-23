@@ -271,10 +271,10 @@ function showBookingsHelper(newBookingObj) {
     resDeleteButton.innerText = "Delete"
     listingRes.append(resDeleteButton)
 
-    const resEditButton = document.createElement('button')
-    resEditButton.className = 'res-edit-btn'
-    resEditButton.innerText = "Edit"
-    listingRes.append(resEditButton)
+    // const resEditButton = document.createElement('button')
+    // resEditButton.className = 'res-edit-btn'
+    // resEditButton.innerText = "Edit"
+    // listingRes.append(resEditButton)
 }
 
 
