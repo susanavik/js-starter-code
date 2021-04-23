@@ -6,11 +6,9 @@ const login = document.querySelector("#login")
 let currentUserId;
 const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
-const reviewView = document.querySelector("#review-container > ul")
-const reservationView = document.querySelector('#reservations ul')
 const logInput = document.querySelector("#login-form > input[type=text]")
-// const viewReview = document.querySelector("#review-container > ul")
-// const viewReservation = document.querySelector('#reservations ul')
+const viewReview = document.querySelector("#review-container > ul")
+const viewReservation = document.querySelector('#reservations ul')
 
 
 
