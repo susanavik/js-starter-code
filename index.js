@@ -101,8 +101,8 @@ function showListingDetailsHelper(listingObj) {
     listingDesc.innerText = `${listingObj.description}`
 
     const listingMapImage = document.querySelector('#map-container img')
-    listingMapImage.src = listingObj.map_img
-    listingMapImage.alt = listingObj.location
+    // listingMapImage.src = listingObj.map_img
+    // listingMapImage.alt = listingObj.location
 
     reviewForm.dataset.id = listingObj.id
     viewReview.dataset.id = listingObj.id
@@ -287,11 +287,11 @@ function viewReservationFunc() {
             resLi.remove()
             event.target.remove()
             const resLiId = resLi.dataset.id
-            
+
             fetch(`http://localhost:3000/bookings/${resLiId}`, {
                 method: 'DELETE'
             })
-        }else if(event.target.className === 'res-edit-btn') {
+        } else if (event.target.className === 'res-edit-btn') {
             const resId = event.target.previousElementSibling.previousElementSibling.dataset.id
             editResFormFunc(resId)
         }
@@ -316,7 +316,7 @@ function editResFormFunc(resId) {
     document.querySelector(".res-edit-btn").addEventListener("click", () => {
         editModal.style.display = "block"
     })
-    
+
     const exitEditButton = document.querySelector('#edit-modal > input.exit-edit-button')
     exitEditButton.addEventListener('click', event => {
         editModal.style.display = "none"
@@ -325,32 +325,49 @@ function editResFormFunc(resId) {
     editModal.addEventListener("submit", event => {
         event.preventDefault()
         editModal.style.display = "none"
-        
+
         if (event.target.dataset.action === "close") {
         }
         // const editCheckin = document.querySelector('#checkin')
         // const editCheckout = document.querySelector('#checkout')
         // const editNote = document.querySelector('#note')
-        
-            const checkin = event.target.checkin.value
-            const checkout = event.target.checkout.value
-            const listing_id = resId
-            const guest_id = currentUserId
-            // note: event.target.comment.value
-    
+
+        const checkin = event.target.checkin.value
+        const checkout = event.target.checkout.value
+        const listing_id = resId
+        const guest_id = currentUserId
+        // note: event.target.comment.value
+
         fetch(`http://localhost:3000/bookings/${resId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({checkin, checkout, listing_id, guest_id})
+            body: JSON.stringify({ checkin, checkout, listing_id, guest_id })
         })
     })
 }
 
 
 
+
+var marker = new mapboxgl.Marker()
+    .setLngLat([30.5, 50.5])
+    .addTo(map);
+
+// Set options
+var marker = new mapboxgl.Marker({
+    color: "#FFFFFF",
+    draggable: true
+}).setLngLat([-74.0083, 40.7077])
+    .addTo(map);
+
+
+// Store the marker's longitude and latitude coordinates in a variable
+var lngLat = marker.getLngLat();
+// Print the marker's longitude and latitude values in the console
+console.log('Longitude: ' + lngLat.lng + ', Latitude: ' + lngLat.lat)
 
 /********** APP INIT **********/
 fetchAllListings()
