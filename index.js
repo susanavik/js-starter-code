@@ -50,12 +50,12 @@ function renderGuestName(name) {
     const userWelcome = document.querySelector('#welcome-banner h2')
     userWelcome.textContent = `Welcome Back, ${name}!`
 
-    // fetch('http://localhost:3000/guests')
-    //     .then(resp => resp.json())
-    //     .then(userArr => {
-    //         userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
-    //         currentUserId = userArr[0].id
-    //     })
+    fetch('http://localhost:3000/guests')
+        .then(resp => resp.json())
+        .then(userArr => {
+            // userWelcome.textContent = `Welcome Back, ${userArr[0].name}!`
+            currentUserId = userArr[0].id
+        })
 }
 
 
@@ -294,10 +294,11 @@ function viewReservationFunc() {
             fetch(`http://localhost:3000/bookings/${resLiId}`, {
                 method: 'DELETE'
             })
-        }else if(event.target.className === 'res-edit-btn') {
-            const resId = event.target.previousElementSibling.previousElementSibling.dataset.id
-            editResFormFunc(resId)
         }
+        // else if(event.target.className === 'res-edit-btn') {
+        //     const resId = event.target.previousElementSibling.previousElementSibling.dataset.id
+        //     editResFormFunc(resId)
+        // }
     })
 }
 
@@ -313,44 +314,44 @@ function viewReservationFunc() {
 // to take a break. 
 
 
-function editResFormFunc(resId) {
-    // console.log(resId)
-    const editModal = document.querySelector("#edit-modal")
-    document.querySelector(".res-edit-btn").addEventListener("click", () => {
-        editModal.style.display = "block"
-    })
+// function editResFormFunc(resId) {
+//     // console.log(resId)
+//     const editModal = document.querySelector("#edit-modal")
+//     document.querySelector(".res-edit-btn").addEventListener("click", () => {
+//         editModal.style.display = "block"
+//     })
     
-    const exitEditButton = document.querySelector('#edit-modal > input.exit-edit-button')
-    exitEditButton.addEventListener('click', event => {
-        editModal.style.display = "none"
-    })
+//     const exitEditButton = document.querySelector('#edit-modal > input.exit-edit-button')
+//     exitEditButton.addEventListener('click', event => {
+//         editModal.style.display = "none"
+//     })
 
-    editModal.addEventListener("submit", event => {
-        event.preventDefault()
-        editModal.style.display = "none"
+//     editModal.addEventListener("submit", event => {
+//         event.preventDefault()
+//         editModal.style.display = "none"
         
-        if (event.target.dataset.action === "close") {
-        }
-        // const editCheckin = document.querySelector('#checkin')
-        // const editCheckout = document.querySelector('#checkout')
-        // const editNote = document.querySelector('#note')
+//         if (event.target.dataset.action === "close") {
+//         }
+//         // const editCheckin = document.querySelector('#checkin')
+//         // const editCheckout = document.querySelector('#checkout')
+//         // const editNote = document.querySelector('#note')
         
-            const checkin = event.target.checkin.value
-            const checkout = event.target.checkout.value
-            const listing_id = resId
-            const guest_id = currentUserId
-            // note: event.target.comment.value
+//             const checkin = event.target.checkin.value
+//             const checkout = event.target.checkout.value
+//             const listing_id = resId
+//             const guest_id = currentUserId
+//             // note: event.target.comment.value
     
-        fetch(`http://localhost:3000/bookings/${resId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({checkin, checkout, listing_id, guest_id})
-        })
-    })
-}
+//         fetch(`http://localhost:3000/bookings/${resId}`, {
+//             method: 'PATCH',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Accept': 'application/json'
+//             },
+//             body: JSON.stringify({checkin, checkout, listing_id, guest_id})
+//         })
+//     })
+// }
 
 
 
