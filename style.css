@@ -5,6 +5,7 @@
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
     background-color:rgb(240, 227, 240);
+    font-size: 18px;
   }
 
 
@@ -25,9 +26,13 @@
    
 /********** LOGIN FORM **********/
    form#login-form {
-       margin: 0;
+       display: block;
+       margin-top: 1px;
+
+       text-align: center;
        font-family: Arial, Helvetica, sans-serif;
        box-sizing: border-box;
+       border:0.75em solid rgba(216,191,216,0.8);
     }
     
     
@@ -44,7 +49,7 @@
     margin: 0 auto;
     width: 60%;
     height: 480px;
-    border:1em solid rgba(216,191,216,0.8);
+    border:0.75em solid rgba(216,191,216,0.8);
 }
 
 
@@ -159,14 +164,16 @@
     .listing-container img {
         width: 100%;
         height: 700px;
+        border:0.75em solid rgba(216,191,216,0.8);
         /* opacity: 0.3; */
     }
 
     .location {
         position: absolute;
-        top: 8px;
-        left: 16px;
+        top: 21px;
+        left: 21px;
         font-size: 18px;
+        opacity: 3;
         /* background-color: rgba(216,191,216,0.8); */
         /* background-color: rgba(255,255,255,0.7) */
         /* background-color:rgb(240, 227, 240, 0.7) */
@@ -176,9 +183,29 @@
         text-align: center;
     }
 
-    #edit-booking-form p {
+    /* #edit-booking-form p {
         text-align: center;
+    } */
+
+    .listing-item:hover {
+        background-color: rgba(99, 12, 238, 0.5);
+        color:#FFFFFF;
+        border-color:#FFFFFF;
     }
+        
+
+      .listing-item:hover {
+        background-color: rgba(99 12 238 / 19%);
+    }
+
+     .listing-item {
+         margin-top: -6px;
+        display: grid;
+        grid-template-columns: repeat(1,1.2fr);
+        grid-auto-rows: 45%;
+        grid-column-gap: 20px;
+        grid-row-gap: 20px;
+      }
     
 
 /********** MAP STYLING  **********/
@@ -224,7 +251,7 @@
         /* height: fit-content; */
         text-align: left;
         width: 70%;
-        margin-top: 8rem;
+        margin-top: 9rem;
         margin-left: 2rem;
         margin-right: auto;
         /* border:1em solid rgba(216,191,216,0.8); */
@@ -249,7 +276,7 @@
 /********** BUTTON STYLING - ALL **********/   
     button.item {
         position: absolute;
-        bottom: 8px;
+        bottom: 15px;
         right: 16px;
         display:inline-block; 
         padding: -0.54em 1.6em;
@@ -371,7 +398,7 @@
         display:inline-block; 
         padding: -0.54em 1.6em;
         border:0.2em solid rgba(216,191,216,0.8);
-        margin:0 0.2em 0.2em 0;
+        margin:0 0.2em 0.2em 80px;
         border-radius:0.75em;
         box-sizing: border-box;
         text-decoration:none;
@@ -470,4 +497,40 @@
     cursor: pointer;
   } */
   
+  .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★ ';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
   

@@ -6,7 +6,7 @@ const login = document.querySelector("#login")
 let currentUserId;
 const listingImg = document.querySelector('#listing-details > div > img')
 const reviewForm = document.querySelector("#create-rating")
-const logInput = document.querySelector("#login-form > input[type=text]")
+const logInput = document.querySelector("#login-form > p > input")
 const viewReview = document.querySelector("#review-container > ul")
 const viewReservation = document.querySelector('#reservations ul')
 
@@ -122,9 +122,7 @@ function showListingDetailsHelper(listingObj) {
             viewReview.append(reviewLi)
 
             const deleteButton = document.createElement('button')
-            // <button type="button" class="btn btn-primary">Primary</button>
-            deleteButton.className ='btn btn-danger'
-            // deleteButton.className = 'delete-btn'
+            deleteButton.className = 'btn btn-danger'
             deleteButton.innerText = "x"
             viewReview.append(deleteButton)
         })
@@ -165,7 +163,7 @@ function reviewFormFunc() {
             comment: event.target.comment.value,
             listing_id: listingId
         }
-
+        console.log(event.target.rate)
         const reviewComment = event.target.comment.value
         const reviewRating = event.target.rating.value
         const reviewLi = document.createElement('li')
@@ -174,8 +172,8 @@ function reviewFormFunc() {
         viewReview.append(reviewLi)
 
         const deleteButton = document.createElement('button')
+        deleteButton.className='btn btn-danger'
         // deleteButton.className = 'delete-btn'
-        deleteButton.className ='btn btn-danger'
         deleteButton.innerText = "x"
         viewReview.append(deleteButton)
 
