@@ -19,8 +19,6 @@ logoBanner.src = 'assets/cover.png'
 const logoPlacement = document.querySelector('#logo > img')
 logoPlacement.src = "assets/main-page-logo.png"
 
-
-
 /********** OPENING CAROSEL AND LOGIN  **********/
 document.addEventListener("DOMContentLoaded", () => {
     const loginContainer = document.querySelector('div.container')
@@ -151,6 +149,11 @@ function showListingDetails() {
 
 
 /********** REVIEW FORM **********/
+
+
+
+
+
 function reviewFormFunc() {
 
     reviewForm.addEventListener('submit', event => {
